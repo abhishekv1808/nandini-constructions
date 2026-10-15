@@ -1,0 +1,321 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* `motion-ok:` — only when JS runs and motion is allowed (see lib/motion/no-flash-script.ts). */
+@custom-variant motion-ok (.motion-ok &);
+
+/* ─── Design tokens (CLAUDE.md §3.2, §3.3) ───────────────────────────────── */
+/* Derived from the Nandini Constructions logo: indigo mark #29176E, red "NC" #D0302A,
+   sky-blue underline #0993D8. Token names are kept so components don't change. */
+@theme {
+  --color-ink: #17113d; /* deep indigo-black — text, hero */
+  --color-charcoal: #29176e; /* logo indigo — dark sections: stats, footer, final CTA */
+  --color-indigo: #29176e;
+  --color-brand: #d0302a; /* logo red — the one CTA colour (white text 5.1:1) */
+  --color-brand-dark: #a8231e; /* CTA hover, red text on light */
+  --color-brand-soft: #fbeae9; /* red tint — highlights, badges */
+  --color-sky: #0993d8; /* logo underline — accent lines, progress bar (decorative only) */
+  --color-sky-light: #8fd3f7; /* accent text on indigo (8.9:1) */
+  --color-sky-soft: #e7f4fc;
+  --color-sand: #f5f4fa; /* cool off-white section background */
+  --color-stone: #8b88a3;
+  --color-line: #e3e1ee;
+  --color-success: #1f8a5b;
+  --color-whatsapp: #1f8a5b;
+
+  /* shadcn/ui semantic aliases → brand tokens */
+  --color-background: #ffffff;
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-brand);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-sand);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-sand);
+  --color-muted-foreground: color-mix(in oklab, var(--color-ink) 72%, white);
+  --color-accent: var(--color-brand-soft);
+  --color-accent-foreground: var(--color-ink);
+  --color-popover: #ffffff;
+  --color-popover-foreground: var(--color-ink);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-ink);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-brand);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-instrument-serif), Georgia, serif;
+
+  --radius-card: 16px;
+  --radius-lg: 12px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ─── Layout + z-index plan (CLAUDE.md §3.7) ─────────────────────────────── */
+:root {
+  --header-h: 64px;
+  --mobile-bar-h: 64px;
+
+  --z-scene: 10;
+  --z-header: 50;
+  --z-progress: 51;
+  --z-cta: 60;
+  --z-sheet: 80;
+  --z-modal: 100;
+  --z-toast: 110;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --header-h: 72px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 48rem) {
+    body {
+      font-size: 1.0625rem;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-ink;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  :where([id]) {
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
+  /* Mobile CTA bar must never cover the end of the page. */
+  @media (max-width: 47.99rem) {
+    body {
+      padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* ─── Lenis (equivalent of lenis/dist/lenis.css) ─────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ─── <Reveal> — hidden state only under html.motion-ok (JS on, motion allowed) ── */
+[data-reveal]:not([data-split]) {
+  transition:
+    opacity var(--reveal-duration, 500ms) var(--ease-out-soft),
+    transform var(--reveal-duration, 500ms) var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.motion-ok [data-reveal]:not([data-split]):not([data-revealed]) {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0px), var(--reveal-y, 16px), 0);
+}
+
+/* ─── <SplitHeading> ─────────────────────────────────────────────────────── */
+.split-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+[data-split][data-reveal] .split-word {
+  transition:
+    opacity 600ms var(--ease-out-soft),
+    transform 600ms var(--ease-out-soft);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+.motion-ok [data-split][data-reveal]:not([data-revealed]) .split-word {
+  opacity: 0;
+  transform: translate3d(0, 0.55em, 0);
+}
+/* Hero mode: pure CSS from first paint — no hydration wait, CTA never blocked. */
+.motion-ok [data-split='immediate'] .split-word {
+  animation: split-in 650ms var(--ease-out-soft) both;
+  animation-delay: calc(var(--i, 0) * 55ms + 60ms);
+}
+@keyframes split-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.55em, 0);
+  }
+}
+
+/* ─── <PinnedScene> — CSS sticky, height reserved at SSR (zero CLS) ──────── */
+.pinned {
+  position: relative;
+  height: var(--pin-h-mobile, 150vh);
+}
+@media (min-width: 48rem) {
+  .pinned {
+    height: var(--pin-h-desktop, 300vh);
+  }
+}
+.pinned-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  z-index: var(--z-scene);
+}
+/* Desktop-only pins (e.g. projects rail → native swipe on mobile). */
+@media (max-width: 47.99rem) {
+  .pinned[data-mobile='static'] {
+    height: auto;
+  }
+  .pinned[data-mobile='static'] .pinned-sticky {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/* No JS, reduced motion (OS or forced): static, stacked content. */
+html:not(.motion-ok) .pinned,
+.pinned[data-static] {
+  height: auto;
+}
+html:not(.motion-ok) .pinned-sticky,
+.pinned[data-static] .pinned-sticky {
+  position: relative;
+  height: auto;
+  overflow: visible;
+}
+
+/* ─── Hero: sticky on roomy desktops so the stats band slides over it ─────── */
+/* Only where the whole hero (incl. form submit) fits on screen, and only with motion. */
+@media (min-width: 64rem) and (min-height: 47.5rem) {
+  .motion-ok .hero-sticky {
+    position: sticky;
+    top: var(--header-h);
+  }
+}
+
+/* ─── Projects rail: driven by PinnedScene's --p (desktop); native swipe on mobile ── */
+@media (min-width: 48rem) {
+  .motion-ok .rail-track {
+    transform: translate3d(calc(var(--p, 0) * var(--rail-shift, 0) * -1px), 0, 0);
+    will-change: transform;
+  }
+}
+
+/* ─── Package comparison "only differences" (CSS-only toggle) ────────────── */
+.spec-compare:has(.only-diff:checked) [data-same] {
+  display: none;
+}
+
+/* ─── Brand marquee — CSS only; static wrap without JS / with reduced motion ── */
+.marquee {
+  --marquee-duration: 45s;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+.motion-ok .marquee-track {
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+.motion-ok .marquee[data-direction='reverse'] .marquee-track {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee[data-paused] .marquee-track {
+  animation-play-state: paused;
+}
+/* Without motion the duplicate copy is pointless — wrap the real list instead. */
+html:not(.motion-ok) .marquee {
+  mask-image: none;
+}
+html:not(.motion-ok) .marquee-track {
+  width: auto;
+  flex-wrap: wrap;
+}
+html:not(.motion-ok) .marquee-dup {
+  display: none;
+}
+/* 'wrap' fallback: the items themselves wrap into a centred grid. */
+html:not(.motion-ok) .marquee[data-fallback='wrap'] {
+  padding-inline: 1rem;
+}
+html:not(.motion-ok) .marquee[data-fallback='wrap'] .marquee-track,
+html:not(.motion-ok) .marquee[data-fallback='wrap'] ul {
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+html:not(.motion-ok) .marquee[data-fallback='wrap'] ul {
+  padding-right: 0;
+}
+/* 'scroll' fallback (large images): one swipeable row instead of a wrapped grid. */
+html:not(.motion-ok) .marquee[data-fallback='scroll'] {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-inline: 1rem;
+}
+html:not(.motion-ok) .marquee[data-fallback='scroll'] .marquee-track {
+  width: max-content;
+  flex-wrap: nowrap;
+}
+html:not(.motion-ok) .marquee[data-fallback='scroll'] li {
+  scroll-snap-align: start;
+}
+.marquee[data-fallback='scroll']:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -2px;
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ─── Global reduced-motion safety net ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

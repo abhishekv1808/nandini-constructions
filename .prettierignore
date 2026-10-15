@@ -1,0 +1,6 @@
+.next
+node_modules
+pnpm-lock.yaml
+CLAUDE.md
+types/supabase.ts
+.next-check
