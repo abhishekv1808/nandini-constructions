@@ -22,9 +22,11 @@ const emptyRow: SiteSettingsRow = {
 };
 
 describe('fallback site config', () => {
-  it('never invents numbers: every stat, rating and review count is missing', () => {
+  it('never invents numbers: stats (except the agreed quality-check count), rating and reviews are missing', () => {
+    const { qualityChecksPerStage, ...otherStats } = FALLBACK_SITE_CONFIG.stats;
+    expect(qualityChecksPerStage).toEqual({ status: 'confirmed', value: 10 });
     const numeric: Field<number>[] = [
-      ...Object.values(FALLBACK_SITE_CONFIG.stats),
+      ...Object.values(otherStats),
       FALLBACK_SITE_CONFIG.googleRating,
       FALLBACK_SITE_CONFIG.googleReviewCount,
     ];

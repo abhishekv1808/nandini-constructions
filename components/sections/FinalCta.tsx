@@ -7,6 +7,7 @@ import { WhatsAppIcon } from '@/components/site/icons';
 import { Button } from '@/components/ui/button';
 import type { ContactLink } from '@/lib/contact-links';
 import type { Tier } from '@/lib/data/packages';
+import type { SERVICE_INTERESTS } from '@/lib/validations';
 import type { SiteConfig } from '@/types/site-config';
 
 /** §6.1 #13 — dark final CTA with the full lead form (the `#quote` target for every quote CTA). */
@@ -15,11 +16,15 @@ export function FinalCta({
   tiers,
   call,
   whatsapp,
+  serviceInterest,
+  title = 'Ready to build on your plot?',
 }: {
   config: SiteConfig;
   tiers: Tier[];
   call: ContactLink;
   whatsapp: ContactLink;
+  serviceInterest?: (typeof SERVICE_INTERESTS)[number];
+  title?: string;
 }) {
   return (
     <section
@@ -41,7 +46,7 @@ export function FinalCta({
         <Reveal className="space-y-6">
           <p className="text-sm font-semibold tracking-[0.16em] text-sky-light uppercase">Free quote</p>
           <h2 id="final-cta" className="text-4xl font-extrabold text-white md:text-5xl">
-            Ready to build on your plot?
+            {title}
           </h2>
           <p className="max-w-md text-lg text-white/75">
             Share a few details and an engineer will call you to discuss your plot, package and budget.
@@ -67,6 +72,7 @@ export function FinalCta({
               slug: t.slug,
               name: `${t.name} — ₹${t.ratePerSqft.toLocaleString('en-IN')}/sq.ft`,
             }))}
+            serviceInterest={serviceInterest}
             trust={<TrustNote config={config} />}
             submitLabel="Get my free quote"
           />

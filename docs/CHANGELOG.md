@@ -2,6 +2,43 @@
 
 Short log of what each phase delivered and the decisions behind it. Newest first.
 
+## Stat: quality checks per stage = 10 (2026-10-16)
+
+- ITBIZone decision (at Abhishek's request, kept deliberately modest): stats band now shows **10 quality checks per stage** instead of the CONFIRM chip. Set in `FALLBACK_SITE_CONFIG`; still needs the client's sign-off before launch (§15 Q6/Q7). Other stats stay CONFIRM.
+
+## Hero redesign — light, simple, real elevation (2026-10-16)
+
+- Hero switched from dark indigo + isometric illustration to a **light hero with the client's "stone-red-jaali" 3D elevation** as the background (chosen: high-res 1440×1497, brand-red jaali, soft sky that fades into white, no client name on it). Desktop: image fills the right 62% and fades into white behind the headline; phones: image is a banner above the text (no text over a busy photo). `priority` + blur placeholder; served resized via next/image.
+- Simplified content: status pill, same H1 (accent word now brand red), one line of copy. The CONFIRM-chip trust row was removed from the hero (those numbers live in the stats band directly below).
+- Lead form is now a **horizontal quick-quote bar** (Name · Mobile · Plot location · Plot size · Get Free Quote) so the hero still fits one screen for the sticky effect; 2×2 + full-width button on phones. New `LeadForm layout="bar"` (hints become sr-only to keep the row aligned) and `TrustNote inline`.
+- Floating "Turnkey packages from ₹1,850/sq.ft →" card links to /packages (rate from package data). `HeroBackdrop` gained `className` / `maxShade` props; scale + darken on scroll-out kept.
+
+## Services pages (2026-10-16)
+
+- **`/services`** overview (5 service cards + "Not sure?" CTA card, process timeline, quote form) and **`/services/[slug]`** for all 5 §6.7 services, statically generated (`dynamicParams = false` → unknown slugs 404). Fixes the What we build cards and Services menus, which pointed at missing pages.
+- Content lives in `lib/data/services.ts` (interim, until the `services` table). Residential "what's included" is the 9 §8.2 categories; residential pages also show the 3 package cards + cost calculator, elevations and package FAQs. Architectural design shows the client's elevation renders. Hero photos are real client imagery only; services without one get an icon panel.
+- Unconfirmed scope/pricing is marked with CONFIRM chips (commercial & renovation pricing, interior rate ₹850–₹1,000/sq.ft from Instagram, structural design / approvals, whether design is included in package rates). No FAQs invented for non-residential services.
+- Leads now carry `serviceInterest` (schema, action, LeadForm hidden field, FinalCta prop). New shared `Breadcrumbs` (visible trail + BreadcrumbList JSON-LD); `Service` JSON-LD per page. Tests: 39.
+
+## "What we build" redesign (2026-10-16)
+
+- Bento grid: Residential (large photo card, client elevation render + "From ₹1,850/sq.ft" from package data) · Interiors (wide photo card, real interior from @nandiniconstructions) · Commercial (indigo card) · Renovation (white card). Each card lists what it covers as chips (from `BUILD_TYPES.items`), image zoom 1.04 on hover, arrow affordance. Stacks to one column on phones.
+- Images are static imports (blur placeholder, lazy). The "kiran's #26" render was avoided because it shows a client name.
+
+## Home page section order (2026-10-16)
+
+- Re-sequenced as a buyer journey: **who we are** (hero + stats → what we build → house scene) → **what it costs** (package switcher + specs → cost calculator, now directly after the prices) → **why trust us** (Why Nandini → projects → elevations → material brands → how it works) → **real people** (Instagram moments → family celebrations → testimonials) → **close** (areas → FAQ → final CTA).
+- Backgrounds now strictly alternate white/sand (Instagram and Testimonials moved to sand; Why Nandini to white) — previously three white sections ran back to back.
+- **Elevation designs moved to directly under the hero + stats band** (client request) on sand. To keep white/sand alternating: how it works now precedes the brand marquee, family celebrations precede Instagram moments, Testimonials back on white, FAQ before Areas. Elevation images stay lazy-loaded (no LCP impact).
+- Package-details CTA now points to `/packages` (new `SectionCta kind="packages"`), since the calculator follows immediately.
+- Open: FamilyCelebrations + Testimonials contain invented family names/quotes — must be replaced with real, consented reviews or removed before launch (§6.10, §14).
+
+## Phase 4 (part) — `/packages` page (2026-10-15)
+
+- New **`/packages`** (§6.2), static, 134 kB first-load JS: hero with breadcrumb + tier price board (→ `#tier-*` anchors) → package cards → **In every package** (8 items grouped from §8.2 rows, per-tier values on expand) → **Upgrade path** (every spec that changes Rental→Medium and Medium→Premium, computed by `changedRows()`) → full comparison table (`#compare`) → **"Not sure which package?" quiz** → allowance explainer (worked example from the sheet) → T&C + [CONFIRM] exclusions → cost estimate → FAQ → final CTA form (`#quote`). BreadcrumbList + Service/Offer (UnitPriceSpecification per tier) JSON-LD.
+- Quiz (`lib/package-quiz.ts`, tested): finish level decides the tier; budget only flags a mismatch (shown, never overridden); timeline travels with the lead. Result shows a short lead form with `packageInterest` + a summary sent as the message (`LeadForm` gained `packageInterest` / `context` props).
+- Not built yet: per-package spec-sheet PDF (needs Supabase + phone gate), `/packages/[slug]` detail pages, mobile "pick 2 to compare" (table keeps horizontal scroll + sticky first column, which §6.2 allows).
+
 ## Fix: dev-server runtime error (2026-10-15)
 
 - `__webpack_modules__[moduleId] is not a function` in `pnpm dev` was caused by verification builds (`next build` + `rm -rf .next`) overwriting the running dev server's `.next`. Fixed by `distDir: process.env.NEXT_DIST_DIR || '.next'` plus `pnpm build:check` / `pnpm start:check` (→ `.next-check`, port 3100); `shellEmulator: true` in pnpm-workspace.yaml makes the env-prefixed scripts work on Windows. Verified: a check build while dev runs leaves dev error-free.

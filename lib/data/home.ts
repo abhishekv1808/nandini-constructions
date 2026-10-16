@@ -12,24 +12,28 @@ export const BUILD_TYPES = [
     title: 'Residential homes',
     href: '/services/residential-construction',
     text: 'Independent houses, duplexes, villas and rental units, G+1 to G+3.',
+    items: ['Independent houses', 'Duplexes', 'Villas', 'Rental units'],
   },
   {
     key: 'commercial',
     title: 'Commercial buildings',
     href: '/services/commercial-construction',
     text: 'Offices, showrooms, PGs and small hotels.',
+    items: ['Offices', 'Showrooms', 'PG / co-living', 'Small hotels'],
   },
   {
     key: 'interiors',
     title: 'Interiors',
     href: '/services/interior-design',
     text: 'Homes, modular kitchens, cafés, clinics, gyms and offices.',
+    items: ['Homes', 'Modular kitchens', 'Cafés', 'Clinics & gyms', 'Offices'],
   },
   {
     key: 'renovation',
     title: 'Renovation & extension',
     href: '/services/renovation-and-extension',
     text: 'Floor additions and remodels on your existing building.',
+    items: ['Floor additions', 'Remodels'],
   },
 ] as const;
 

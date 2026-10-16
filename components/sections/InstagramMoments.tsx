@@ -13,7 +13,7 @@ export function InstagramMoments({ moments, config }: { moments: InstagramMoment
   const youtube = config.social.youtube.status === 'missing' ? null : config.social.youtube.value;
 
   return (
-    <section id="moments" aria-labelledby="moments-title" className="bg-white py-16 md:py-24">
+    <section id="moments" aria-labelledby="moments-title" className="bg-sand py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="moments-title"

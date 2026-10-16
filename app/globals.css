@@ -56,7 +56,7 @@
 
 /* ─── Layout + z-index plan (CLAUDE.md §3.7) ─────────────────────────────── */
 :root {
-  --header-h: 64px;
+  --header-h: 70px;
   --mobile-bar-h: 64px;
 
   --z-scene: 10;
@@ -70,7 +70,7 @@
 
 @media (min-width: 48rem) {
   :root {
-    --header-h: 72px;
+    --header-h: 78px;
   }
 }
 

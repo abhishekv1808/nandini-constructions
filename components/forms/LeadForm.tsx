@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { submitLead, type LeadFormState } from '@/lib/actions/lead';
 import type { TierSlug } from '@/lib/data/packages';
 import { usePackageSelectClicks } from '@/lib/package-select';
-import type { LeadField } from '@/lib/validations';
+import type { LeadField, SERVICE_INTERESTS } from '@/lib/validations';
 import { cn } from '@/lib/utils';
 
 type LeadFormProps = {
@@ -19,6 +19,17 @@ type LeadFormProps = {
   trust?: ReactNode;
   submitLabel?: string;
   tone?: 'light' | 'dark';
+  /**
+   * `bar`: short fields + submit in one row on desktop (2×2 + full-width button on phones);
+   * field hints become screen-reader-only so the row stays aligned.
+   */
+  layout?: 'stack' | 'bar';
+  /** Pre-selected package (full variant) or sent as a hidden field (hero variant). */
+  packageInterest?: TierSlug;
+  /** Service the lead came from (`/services/[slug]`), sent as a hidden field. */
+  serviceInterest?: (typeof SERVICE_INTERESTS)[number];
+  /** Hidden context sent as the message on the hero variant (e.g. package-quiz answers). */
+  context?: string;
   className?: string;
 };
 
@@ -36,12 +47,16 @@ export function LeadForm({
   trust,
   submitLabel = 'Get Free Quote',
   tone = 'light',
+  layout = 'stack',
+  packageInterest,
+  serviceInterest,
+  context,
   className,
 }: LeadFormProps) {
   const [state, action, pending] = useActionState(submitLead, initialState);
   const pathname = usePathname();
   const uid = useId();
-  const [pkg, setPkg] = useState<string>('');
+  const [pkg, setPkg] = useState<string>(packageInterest ?? '');
   usePackageSelectClicks(useCallback((slug: TierSlug) => setPkg(slug), []));
 
   const id = (f: string) => `${uid}-${f}`;
@@ -62,7 +77,11 @@ export function LeadForm({
       {hint && !err(name) && (
         <p
           id={id(`${name}-hint`)}
-          className={cn('mt-1 text-xs', tone === 'dark' ? 'text-white/60' : 'text-ink/60')}
+          className={cn(
+            'mt-1 text-xs',
+            tone === 'dark' ? 'text-white/60' : 'text-ink/60',
+            layout === 'bar' && 'sr-only',
+          )}
         >
           {hint}
         </p>
@@ -85,6 +104,18 @@ export function LeadForm({
     'aria-describedby': err(name) ? id(`${name}-error`) : hasHint ? id(`${name}-hint`) : undefined,
   });
 
+  const submit = (
+    <Button
+      type="submit"
+      size="lg"
+      className={cn('w-full', layout === 'bar' && 'lg:h-12 lg:px-6 lg:text-base')}
+      disabled={pending}
+    >
+      {pending && <LoaderCircleIcon className="animate-spin" strokeWidth={1.5} aria-hidden />}
+      {pending ? 'Sending…' : submitLabel}
+    </Button>
+  );
+
   if (state.status === 'success') {
     return (
       <div className={cn('space-y-3 rounded-2xl bg-white p-6 text-ink', className)} role="status">
@@ -99,6 +130,11 @@ export function LeadForm({
     <form action={action} className={cn('space-y-4', className)} noValidate>
       <input type="hidden" name="formType" value={formType} />
       <input type="hidden" name="sourcePage" value={pathname} />
+      {variant === 'hero' && packageInterest && (
+        <input type="hidden" name="packageInterest" value={packageInterest} />
+      )}
+      {serviceInterest && <input type="hidden" name="serviceInterest" value={serviceInterest} />}
+      {variant === 'hero' && context && <input type="hidden" name="message" value={context} />}
       {/* Turnstile widget mounts here in Phase 6 */}
       <input type="hidden" name="cf-turnstile-response" value="" />
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -108,7 +144,13 @@ export function LeadForm({
         </label>
       </div>
 
-      <div className={cn('grid gap-4', variant === 'full' && 'sm:grid-cols-2')}>
+      <div
+        className={cn(
+          'grid gap-4',
+          variant === 'full' && 'sm:grid-cols-2',
+          layout === 'bar' && 'items-start gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto]',
+        )}
+      >
         {field(
           'name',
           'Your name',
@@ -194,6 +236,7 @@ export function LeadForm({
             </div>
           </>
         )}
+        {layout === 'bar' && <div className="sm:col-span-2 lg:col-span-1 lg:pt-[1.625rem]">{submit}</div>}
       </div>
 
       {state.status === 'error' && state.message && (
@@ -205,10 +248,7 @@ export function LeadForm({
         </p>
       )}
 
-      <Button type="submit" size="lg" className="w-full" disabled={pending}>
-        {pending && <LoaderCircleIcon className="animate-spin" strokeWidth={1.5} aria-hidden />}
-        {pending ? 'Sending…' : submitLabel}
-      </Button>
+      {layout === 'stack' && submit}
       {trust}
     </form>
   );

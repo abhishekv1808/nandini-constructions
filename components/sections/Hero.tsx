@@ -1,40 +1,74 @@
-import { ArrowRightIcon, CalculatorIcon, StarIcon } from 'lucide-react';
+import { ArrowRightIcon, CalculatorIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { SplitHeading } from '@/components/motion/SplitHeading';
 import { LeadForm } from '@/components/forms/LeadForm';
 import { TrustNote } from '@/components/forms/TrustNote';
-import { HouseSvg } from '@/components/scenes/HouseBuild/HouseSvg';
-import { Placeholder } from '@/components/site/Placeholder';
 import { Button } from '@/components/ui/button';
+import { ELEVATIONS } from '@/lib/data/elevations';
+import { TIERS, formatRate } from '@/lib/data/packages';
 import type { SiteConfig } from '@/types/site-config';
 import { HeroBackdrop } from './HeroBackdrop';
 
+/** Client-supplied render (no client name on it); its soft sky fades into the white hero. */
+const HERO_ELEVATION = ELEVATIONS.find((e) => e.key === 'stone-red-jaali') ?? ELEVATIONS[0]!;
+const fromRate = formatRate(Math.min(...TIERS.map((t) => t.ratePerSqft)));
+
 /**
- * §6.1 #1 Hero. Until real photos arrive (§3.4) the full-bleed visual is the finished isometric
- * house (tracked in docs/placeholder-assets.md). H1 renders at first paint via CSS; the form is a
- * Server Action form, so the CTA works before hydration. On ≥1024×760 the hero is sticky and the
- * stats band slides over it.
+ * §6.1 #1 Hero — light and simple. Desktop: the elevation fills the right ~60% and fades into
+ * white behind the headline; the short lead form runs as a quote bar along the bottom. Phones: the
+ * elevation is a banner above the text. H1 paints immediately (CSS); the form is a Server Action,
+ * so the CTA works before hydration. On ≥1024×760 the hero is sticky and the stats band slides over.
  */
 export function Hero({ config }: { config: SiteConfig }) {
   return (
     <section
       aria-labelledby="hero-title"
-      className="hero-sticky relative isolate overflow-hidden bg-ink text-white lg:min-h-[calc(100svh-var(--header-h))]"
+      className="hero-sticky relative isolate overflow-hidden bg-white lg:flex lg:min-h-[calc(100svh-var(--header-h))] lg:flex-col lg:justify-center"
     >
-      <HeroBackdrop>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(9,147,216,0.30),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:48px_48px]" />
-        <HouseSvg
-          decorative
-          idPrefix="house-hero"
-          className="absolute top-1/2 left-1/2 w-[150%] max-w-none -translate-x-[38%] -translate-y-[42%] opacity-30 md:w-[105%] md:-translate-x-[20%] md:opacity-40 lg:w-[78%] lg:-translate-x-[8%]"
+      {/* Elevation: banner on phones, right-hand background on desktop */}
+      <HeroBackdrop
+        maxShade={0.35}
+        className="relative aspect-[4/3] sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[62%]"
+      >
+        <Image
+          src={HERO_ELEVATION.image}
+          alt=""
+          fill
+          priority
+          placeholder="blur"
+          sizes="(min-width: 1024px) 62vw, 100vw"
+          className="object-cover object-[50%_12%] lg:object-[50%_30%]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--color-ink)_0%,rgba(23,17,61,0.82)_45%,rgba(23,17,61,0.35)_100%)]" />
+        <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,#fff_0%,rgba(255,255,255,0.92)_12%,rgba(255,255,255,0.45)_30%,rgba(255,255,255,0)_55%)] lg:block" />
+        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/70 to-transparent lg:h-1/4 lg:from-white/60 lg:via-transparent" />
+        <p className="absolute right-4 bottom-4 hidden rounded-full bg-white/85 px-3 py-1.5 text-xs font-semibold text-ink/80 shadow-sm backdrop-blur-sm lg:top-[52%] lg:right-6 lg:bottom-auto lg:block">
+          3D elevation by Nandini Constructions
+        </p>
       </HeroBackdrop>
 
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 pt-10 pb-16 md:px-6 md:pt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-14 lg:pb-24">
-        <div className="space-y-6">
-          <p className="text-sm font-semibold tracking-[0.16em] text-sky-light uppercase">
-            Turnkey construction · Tumakuru
+      {/* Packages teaser floating over the sky (desktop) */}
+      <Link
+        href="/packages"
+        className="group absolute top-[12%] right-[5%] hidden items-center gap-4 rounded-2xl bg-white/90 py-3 pr-3 pl-5 shadow-xl ring-1 ring-black/5 backdrop-blur-md transition-transform hover:-translate-y-0.5 lg:flex"
+      >
+        <span>
+          <span className="block text-xs font-semibold tracking-[0.12em] text-ink/60 uppercase">
+            Turnkey packages
+          </span>
+          <span className="font-heading text-xl font-extrabold text-ink">from {fromRate}</span>
+        </span>
+        <span className="grid size-10 place-items-center rounded-full bg-brand text-white transition-transform group-hover:translate-x-0.5">
+          <ArrowRightIcon className="size-5" strokeWidth={1.75} aria-hidden />
+        </span>
+        <span className="sr-only">— see packages</span>
+      </Link>
+
+      <div className="relative mx-auto w-full max-w-7xl px-4 md:px-6">
+        <div className="-mt-6 max-w-xl space-y-5 sm:-mt-10 lg:mt-0 lg:max-w-[38rem] lg:pt-10 xl:max-w-2xl">
+          <p className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-charcoal shadow-sm ring-1 ring-line">
+            <span className="size-2 rounded-full bg-success" aria-hidden="true" />
+            Turnkey home construction in Tumakuru
           </p>
           <SplitHeading
             as="h1"
@@ -42,53 +76,42 @@ export function Hero({ config }: { config: SiteConfig }) {
             immediate
             accent="home"
             text="Build your dream home in Tumakuru — at a fixed price, delivered on time."
-            className="text-[2.25rem] leading-[1.06] font-extrabold text-white sm:text-5xl xl:text-6xl"
-            accentClassName="text-sky-light"
+            className="text-[2.25rem] leading-[1.06] font-extrabold text-ink sm:text-5xl xl:text-[3.5rem]"
+            accentClassName="text-brand"
           />
-          <p className="max-w-xl text-lg text-white/80">
-            One team from design and approvals to handover — with every material, brand and finish listed
-            upfront in your package.
+          <p className="max-w-lg text-lg text-ink/70">
+            One friendly team from design to handover — with every material, brand and finish listed upfront.
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row lg:hidden">
             <Button asChild size="lg">
               <a href="#hero-form">
                 Get Free Quote <ArrowRightIcon strokeWidth={1.5} />
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline-light">
+            <Button asChild size="lg" variant="secondary">
               <a href="#cost-estimate">
                 <CalculatorIcon strokeWidth={1.5} /> Calculate Cost
               </a>
             </Button>
           </div>
-          <ul
-            className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/80"
-            aria-label="Why homeowners trust us"
-          >
-            <li className="flex flex-wrap items-center gap-2">
-              <StarIcon className="size-4 fill-amber-400 text-amber-400" aria-hidden />
-              <span className="font-semibold text-white">Google rating</span>
-              <Placeholder field={config.googleRating} tone="dark">
-                {(r) => `${r.toFixed(1)} / 5`}
-              </Placeholder>
-            </li>
-            <li className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-white">Homes delivered</span>
-              <Placeholder field={config.stats.projectsDelivered} tone="dark" />
-            </li>
-            <li className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-white">Years</span>
-              <Placeholder field={config.stats.yearsExperience} tone="dark" />
-            </li>
-          </ul>
         </div>
 
-        <div id="hero-form" className="rounded-[20px] bg-white p-5 text-ink shadow-2xl sm:p-7">
-          <h2 className="text-xl font-extrabold">Get a free quote for your plot</h2>
-          <p className="mt-1 mb-5 text-sm text-ink/70">
-            Tell us about your plot — an engineer will call you back.
-          </p>
-          <LeadForm formType="hero" trust={<TrustNote config={config} />} />
+        {/* Quick quote bar */}
+        <div
+          id="hero-form"
+          className="mt-10 mb-12 rounded-[22px] bg-white/95 p-5 shadow-[0_24px_60px_-20px_rgba(23,17,61,0.35)] ring-1 ring-line backdrop-blur-md sm:p-6 lg:mt-12 lg:mb-14"
+        >
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h2 className="text-lg font-extrabold">Get a free quote for your plot</h2>
+            <a
+              href="#cost-estimate"
+              className="hidden items-center gap-1.5 text-sm font-semibold text-brand-dark underline-offset-4 hover:underline lg:inline-flex"
+            >
+              <CalculatorIcon className="size-4" strokeWidth={1.5} aria-hidden />
+              Or calculate your cost first
+            </a>
+          </div>
+          <LeadForm formType="hero" layout="bar" trust={<TrustNote config={config} inline />} />
         </div>
       </div>
     </section>

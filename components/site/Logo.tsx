@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
+export type LogoSize = 'default' | 'lg' | 'xl';
+
 /**
  * Nandini Constructions lockup: the real building + "NC" mark (public/brand/nc-mark.png, cropped
  * from the client's logo) with the name set like the logo's banner — uppercase indigo with the
@@ -10,38 +12,68 @@ import { cn } from '@/lib/utils';
 export function Logo({
   name,
   tone = 'dark',
+  size = 'default',
   className,
 }: {
   name: string;
   tone?: 'dark' | 'light';
+  size?: LogoSize;
   className?: string;
 }) {
+  const isLarge = size === 'lg' || size === 'xl';
+
   return (
     <Link
       href="/"
       aria-label={`${name} — home`}
-      className={cn('inline-flex min-h-11 items-center gap-2 sm:gap-2.5', className)}
+      className={cn(
+        'inline-flex min-h-11 items-center transition-opacity hover:opacity-95',
+        isLarge ? 'gap-3 sm:gap-4' : 'gap-2.5 sm:gap-3 md:gap-3.5',
+        className,
+      )}
     >
-      <span className={cn('shrink-0', tone === 'light' && 'rounded-lg bg-white p-1')}>
+      <span
+        className={cn(
+          'shrink-0',
+          tone === 'light' &&
+            (isLarge
+              ? 'rounded-xl sm:rounded-2xl bg-white p-2 sm:p-2.5 shadow-sm'
+              : 'rounded-xl bg-white p-1.5 shadow-xs'),
+        )}
+      >
         <Image
           src="/brand/nc-mark.png"
           alt=""
           width={268}
           height={256}
           priority={tone === 'dark'}
-          className="h-10 w-auto sm:h-11"
+          className={cn(
+            'w-auto object-contain',
+            isLarge
+              ? 'h-14 sm:h-16 md:h-20'
+              : 'h-11 sm:h-12 md:h-14',
+          )}
         />
       </span>
-      <span className="flex flex-col gap-1">
+      <span className={cn('flex flex-col', isLarge ? 'gap-1.5 sm:gap-2' : 'gap-1 sm:gap-1.5')}>
         <span
           className={cn(
-            'max-w-[6.75rem] font-heading text-[0.8125rem] leading-[1.05] font-extrabold tracking-wide uppercase sm:max-w-none sm:text-[0.9375rem]',
+            'font-heading leading-[1.05] font-black tracking-wide uppercase',
+            isLarge
+              ? 'text-lg sm:text-xl md:text-2xl'
+              : 'text-[0.9375rem] sm:text-[1.0625rem] md:text-lg',
             tone === 'dark' ? 'text-charcoal' : 'text-white',
           )}
         >
           {name}
         </span>
-        <span aria-hidden="true" className="h-[3px] w-full rounded-full bg-sky" />
+        <span
+          aria-hidden="true"
+          className={cn(
+            'w-full rounded-full bg-sky',
+            isLarge ? 'h-[4px] sm:h-[5px]' : 'h-[3.5px] md:h-[4px]',
+          )}
+        />
       </span>
     </Link>
   );

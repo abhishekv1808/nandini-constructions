@@ -18,7 +18,7 @@ export async function Footer() {
     <footer className="bg-ink text-white/85">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:px-6 lg:grid-cols-[1.3fr_2fr]">
         <div className="space-y-5">
-          <Logo name={config.companyName} tone="light" />
+          <Logo name={config.companyName} tone="light" size="lg" />
           <p className="max-w-sm text-[0.9375rem] text-white/75">
             Turnkey house and commercial construction in Tumakuru — design to handover, at fixed package
             prices with every material listed upfront.

@@ -9,7 +9,7 @@ In the UI, unconfirmed facts render with an amber dashed **⚠ CONFIRM** chip (`
 | ----------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
 | Logo (PNG from client)                          | `public/brand/*`, `app/icon.png` | Vector (SVG/AI) version for print + crisp scaling — optional                                  |
 | `public/dev/parallax-demo.svg`                  | `/dev/motion` only               | — (dev only, never on public pages)                                                           |
-| Hero backdrop = isometric house illustration    | `components/sections/Hero.tsx`   | Real completed-home photo/video (§3.4, ≤200 KB AVIF)                                          |
+| Hero background = client 3D elevation render (stone-red-jaali) | `components/sections/Hero.tsx`   | Real completed-home photo/video (§3.4, ≤200 KB AVIF)                                          |
 | `public/placeholders/blueprint.svg`             | Final CTA parallax background    | Real site/home photo                                                                          |
 | Striped "Project photo — awaiting client" tiles | `ProjectsRail` cards             | Real project photos                                                                           |
 | Brand logos (12 real, 12 wordmarks)             | `BrandMarquee`                   | See docs/brand-logo-sources.md — CONFIRM client is OK displaying them; supply remaining files |

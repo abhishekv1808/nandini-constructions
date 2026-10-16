@@ -10,6 +10,13 @@ export function normalisePhone(raw: string): string | null {
 }
 
 export const PACKAGE_INTERESTS = ['rental', 'medium', 'premium', 'not-sure'] as const;
+export const SERVICE_INTERESTS = [
+  'residential-construction',
+  'commercial-construction',
+  'interior-design',
+  'renovation-and-extension',
+  'architectural-design',
+] as const;
 export const FORM_TYPES = ['hero', 'contact', 'calculator', 'package', 'exit_intent'] as const;
 
 const optionalText = (max: number) =>
@@ -37,6 +44,7 @@ export const leadSchema = z.object({
   plotLocation: z.string().trim().min(2, 'Where is your plot?').max(120, 'Location is too long'),
   plotSize: optionalText(60),
   packageInterest: z.enum(PACKAGE_INTERESTS).optional(),
+  serviceInterest: z.enum(SERVICE_INTERESTS).optional(),
   message: optionalText(1000),
   formType: z.enum(FORM_TYPES),
   sourcePage: optionalText(200),

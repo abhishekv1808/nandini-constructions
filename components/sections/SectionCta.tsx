@@ -1,4 +1,4 @@
-import { ArrowRightIcon, CalculatorIcon, PhoneIcon } from 'lucide-react';
+import { ArrowRightIcon, CalculatorIcon, LayersIcon, PhoneIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Reveal } from '@/components/motion/Reveal';
 import { Button } from '@/components/ui/button';
@@ -6,7 +6,7 @@ import type { ContactLink } from '@/lib/contact-links';
 import { QUOTE_HREF } from '@/lib/site-nav';
 import { cn } from '@/lib/utils';
 
-type Kind = 'quote' | 'calculate' | 'engineer';
+type Kind = 'quote' | 'calculate' | 'engineer' | 'packages';
 
 /** §4.7 — a CTA after every major section, alternating the three actions. */
 export function SectionCta({
@@ -40,6 +40,13 @@ export function SectionCta({
           <a href="#cost-estimate">
             <CalculatorIcon strokeWidth={1.5} /> Calculate Cost
           </a>
+        </Button>
+      )}
+      {kind === 'packages' && (
+        <Button asChild>
+          <Link href="/packages">
+            <LayersIcon strokeWidth={1.5} /> Explore Packages
+          </Link>
         </Button>
       )}
       {kind === 'engineer' && call && (

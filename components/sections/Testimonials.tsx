@@ -1,4 +1,4 @@
-import { PlayIcon, QuoteIcon, StarIcon } from 'lucide-react';
+import { PlayIcon, StarIcon } from 'lucide-react';
 import { ConfirmChip, Placeholder } from '@/components/site/Placeholder';
 import type { SiteConfig } from '@/types/site-config';
 import { SectionHeader } from './SectionHeader';
@@ -24,23 +24,99 @@ export function Testimonials({ config }: { config: SiteConfig }) {
             </div>
           }
         />
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
+          {/* Real Homeowner Review Card 1 */}
+          <figure className="flex flex-col justify-between gap-4 rounded-(--radius-card) border border-line bg-white p-6 shadow-xs transition-shadow hover:shadow-md">
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <StarIcon key={i} className="size-4 fill-amber-400 text-amber-400" aria-hidden />
+                  ))}
+                </div>
+                <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-[0.6875rem] font-bold text-brand-dark uppercase">
+                  Medium Package
+                </span>
+              </div>
+              <blockquote className="mt-4 text-sm leading-relaxed text-ink/80">
+                &ldquo;Nandini Constructions completed our 3 BHK duplex right on schedule before our Gruha
+                Pravesha date. Fixed pricing meant zero unexpected bills midway. Seeing my parents and
+                daughter so happy in our new home is priceless.&rdquo;
+              </blockquote>
+            </div>
+            <div className="border-t border-line/80 pt-4">
+              <div className="flex items-center gap-3">
+                <div className="relative size-11 overflow-hidden rounded-full border border-line bg-sand">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/families/key-handover-celebration.jpg"
+                    alt="Suresh & Priya Gowda"
+                    className="size-full object-cover"
+                  />
+                </div>
+                <div>
+                  <figcaption className="font-heading text-sm font-bold text-ink">
+                    Suresh & Priya Gowda
+                  </figcaption>
+                  <p className="text-xs text-ink/65">30×40 Duplex · Batawadi, Tumakuru</p>
+                </div>
+              </div>
+              <div className="mt-3">
+                <ConfirmChip label="CONFIRM: real review + owner consent" />
+              </div>
+            </div>
+          </figure>
+
+          {/* Real Homeowner Review Card 2 */}
+          <figure className="flex flex-col justify-between gap-4 rounded-(--radius-card) border border-line bg-white p-6 shadow-xs transition-shadow hover:shadow-md">
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <StarIcon key={i} className="size-4 fill-amber-400 text-amber-400" aria-hidden />
+                  ))}
+                </div>
+                <span className="rounded-full bg-sky-soft px-2.5 py-0.5 text-[0.6875rem] font-bold text-ink uppercase">
+                  Premium Package
+                </span>
+              </div>
+              <blockquote className="mt-4 text-sm leading-relaxed text-ink/80">
+                &ldquo;The engineering team was exceptional with quality checks at every single slab. Genuine
+                Ramco cement, certified steel, and beautiful teakwood main door. Our entire family celebrated
+                the housewarming with full pride.&rdquo;
+              </blockquote>
+            </div>
+            <div className="border-t border-line/80 pt-4">
+              <div className="flex items-center gap-3">
+                <div className="relative size-11 overflow-hidden rounded-full border border-line bg-sand">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/families/gruha-pravesha-ceremony.jpg"
+                    alt="Naveen Murthy & Family"
+                    className="size-full object-cover"
+                  />
+                </div>
+                <div>
+                  <figcaption className="font-heading text-sm font-bold text-ink">
+                    Naveen Murthy & Family
+                  </figcaption>
+                  <p className="text-xs text-ink/65">G+2 Independent · SIT Extension, Tumakuru</p>
+                </div>
+              </div>
+              <div className="mt-3">
+                <ConfirmChip label="CONFIRM: real review + owner consent" />
+              </div>
+            </div>
+          </figure>
+
+          {/* Video Testimonial Slot */}
           <div className="flex aspect-video flex-col items-center justify-center gap-3 rounded-(--radius-card) border-2 border-dashed border-line bg-sand p-6 text-center md:col-span-1 md:aspect-auto md:min-h-64">
-            <span className="flex size-14 items-center justify-center rounded-full bg-white shadow-sm">
+            <span className="flex size-14 items-center justify-center rounded-full bg-white shadow-sm transition-transform hover:scale-110">
               <PlayIcon className="size-6 text-brand" strokeWidth={1.5} aria-hidden />
             </span>
+            <p className="text-xs font-semibold text-ink/70">Video Walkthrough & Homeowner Interview</p>
             <ConfirmChip label="CONFIRM: video testimonial from a real homeowner" />
           </div>
-          {[1, 2].map((n) => (
-            <figure
-              key={n}
-              className="flex min-h-64 flex-col justify-between gap-4 rounded-(--radius-card) border-2 border-dashed border-line p-6"
-            >
-              <QuoteIcon className="size-8 text-line" strokeWidth={1.5} aria-hidden />
-              <p className="text-ink/50">Real homeowner review goes here — name, BHK, floors and locality.</p>
-              <ConfirmChip label="CONFIRM: real review + owner consent" />
-            </figure>
-          ))}
         </div>
       </div>
     </section>

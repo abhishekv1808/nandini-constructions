@@ -37,7 +37,7 @@ export function ElevationGallery({ items }: { items: Elevation[] }) {
     <section
       id="elevations"
       aria-labelledby="elevations-title"
-      className="overflow-hidden bg-white py-16 md:py-24"
+      className="overflow-hidden bg-sand py-16 md:py-24"
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
@@ -58,7 +58,11 @@ export function ElevationGallery({ items }: { items: Elevation[] }) {
       />
 
       <div className="mx-auto max-w-7xl px-4 md:px-6">
-        <SectionCta kind="quote" text="Like a design? Tell us about your plot and we’ll plan yours." />
+        <SectionCta
+          kind="quote"
+          text="Like a design? Tell us about your plot and we’ll plan yours."
+          className="bg-white"
+        />
       </div>
     </section>
   );

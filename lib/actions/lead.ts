@@ -19,6 +19,7 @@ const FIELDS: LeadField[] = [
   'plotLocation',
   'plotSize',
   'packageInterest',
+  'serviceInterest',
   'message',
   'formType',
   'sourcePage',

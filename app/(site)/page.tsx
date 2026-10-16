@@ -5,6 +5,7 @@ import { AreasGrid } from '@/components/sections/AreasGrid';
 import { BrandMarquee } from '@/components/sections/BrandMarquee';
 import { CalculatorTeaser } from '@/components/sections/CalculatorTeaser';
 import { ElevationGallery } from '@/components/sections/ElevationGallery';
+import { FamilyCelebrations } from '@/components/sections/FamilyCelebrations';
 import { FaqSection } from '@/components/sections/FaqSection';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Hero } from '@/components/sections/Hero';
@@ -62,16 +63,20 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* 1–2: hero (sticky on large screens) + stats band sliding over it */}
+      {/* ── 1. Who we are ─────────────────────────────────────────────── */}
+      {/* Hero (sticky on large screens) + stats band sliding over it — charcoal */}
       <div className="relative">
         <Hero config={config} />
         <StatsBand config={config} />
       </div>
 
-      {/* 3 */}
+      {/* Client-supplied elevation renders, first thing after the hero — sand */}
+      <ElevationGallery items={ELEVATIONS} />
+
+      {/* What we build — white */}
       <WhatWeBuild />
 
-      {/* 3a: signature scene */}
+      {/* Signature scene: watch your home rise — sand */}
       <HouseBuild
         stages={stages}
         tiers={TIERS.map(({ slug, shortName }) => ({ slug, shortName }))}
@@ -79,7 +84,8 @@ export default async function HomePage() {
         skipTo="#packages"
       />
 
-      {/* 4: package switcher scene + full specifications */}
+      {/* ── 2. What it costs ──────────────────────────────────────────── */}
+      {/* Package switcher scene + full specifications — white */}
       <PackageSwitcher tiers={TIERS} keySpecs={keySpecs} />
       <section
         id="package-details"
@@ -114,12 +120,28 @@ export default async function HomePage() {
               <ConfirmChip label="CONFIRM: exclusions (e.g. compound wall, connections, approval fees) + what “non-tendering items” covers" />
             </div>
           </Reveal>
-          <SectionCta kind="calculate" text="See what your home would cost in each package." />
+          <SectionCta kind="packages" text="See what every package includes and what each upgrade buys." />
         </div>
       </section>
 
-      {/* 5 */}
-      <section id="why-nandini" aria-labelledby="why-nandini-title" className="bg-sand py-16 md:py-24">
+      {/* Cost estimate, right after the prices — sand */}
+      <section id="cost-estimate" aria-labelledby="cost-estimate-title" className="bg-sand py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <SectionHeader
+            id="cost-estimate-title"
+            eyebrow="Cost calculator"
+            title="What will your home cost?"
+            text="Pick a package and enter your built-up area for an instant estimate."
+          />
+          <Reveal>
+            <CalculatorTeaser tiers={TIERS} defaultTier={defaultTier} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── 3. Why trust us ───────────────────────────────────────────── */}
+      {/* Why Nandini — white */}
+      <section id="why-nandini" aria-labelledby="why-nandini-title" className="bg-white py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="why-nandini-title"
@@ -128,20 +150,14 @@ export default async function HomePage() {
             text="What you can expect from us, from agreement to handover."
           />
           <WhyNandini promises={PROMISES} />
-          <SectionCta kind="quote" text="Get a fixed quote for your plot — free." className="bg-white" />
+          <SectionCta kind="quote" text="Get a fixed quote for your plot — free." />
         </div>
       </section>
 
-      {/* 5b: client-supplied elevation renders, auto-scrolling */}
-      <ElevationGallery items={ELEVATIONS} />
-
-      {/* 5c: real ceremonies & site videos from Instagram (embed loads on tap) */}
-      <InstagramMoments moments={INSTAGRAM_MOMENTS} config={config} />
-
-      {/* 6 */}
+      {/* Featured projects — sand */}
       <ProjectsRail projects={SAMPLE_PROJECTS} packageNames={packageNames} />
 
-      {/* 7 */}
+      {/* How it works — white */}
       <section id="how-it-works" aria-labelledby="how-it-works-title" className="bg-white py-16 md:py-24">
         <div className="mx-auto max-w-5xl px-4 md:px-6">
           <SectionHeader
@@ -160,28 +176,25 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8 */}
-      <section id="cost-estimate" aria-labelledby="cost-estimate-title" className="bg-sand py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <SectionHeader
-            id="cost-estimate-title"
-            eyebrow="Cost calculator"
-            title="What will your home cost?"
-            text="Pick a package and enter your built-up area for an instant estimate."
-          />
-          <Reveal>
-            <CalculatorTeaser tiers={TIERS} defaultTier={defaultTier} />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 9–12 */}
-      <Testimonials config={config} />
+      {/* Material brands from the package sheet — sand */}
       <BrandMarquee groups={MATERIAL_BRANDS} />
-      <AreasGrid areas={SERVICE_AREAS_TENTATIVE} />
-      <FaqSection faqs={HOME_FAQS} />
 
-      {/* 13 */}
+      {/* ── 4. Real people, real homes ────────────────────────────────── */}
+      {/* Housewarming & handover moments — white */}
+      <FamilyCelebrations />
+
+      {/* Ceremonies & site videos from Instagram (embed loads on tap) — sand */}
+      <InstagramMoments moments={INSTAGRAM_MOMENTS} config={config} />
+
+      {/* Testimonials — white */}
+      <Testimonials config={config} />
+
+      {/* ── 5. Close ──────────────────────────────────────────────────── */}
+      {/* FAQ — sand · Areas (local SEO links) — white */}
+      <FaqSection faqs={HOME_FAQS} />
+      <AreasGrid areas={SERVICE_AREAS_TENTATIVE} />
+
+      {/* Final CTA (#quote) — charcoal */}
       <FinalCta config={config} tiers={TIERS} call={call} whatsapp={whatsapp} />
     </>
   );

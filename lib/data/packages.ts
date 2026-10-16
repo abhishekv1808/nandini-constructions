@@ -356,3 +356,37 @@ export function isAllowance(value: string): boolean {
 export function formatRate(rate: number): string {
   return `₹${rate.toLocaleString('en-IN')}/sq.ft`;
 }
+
+export type ChangedRow = { category: string; row: SpecRow; from: string; to: string };
+
+/** Every §8.2 row whose value differs between two tiers (the /packages upgrade path). */
+export function changedRows(from: TierSlug, to: TierSlug): ChangedRow[] {
+  return SPEC_CATEGORIES.flatMap((category) =>
+    category.rows
+      .filter((r) => r.values[from] !== r.values[to])
+      .map((r) => ({ category: category.name, row: r, from: r.values[from], to: r.values[to] })),
+  );
+}
+
+/** Rows carrying a ₹ allowance in at least one tier. */
+export function allowanceRows(): SpecRow[] {
+  return SPEC_CATEGORIES.flatMap((c) => c.rows.filter((r) => Object.values(r.values).some(isAllowance)));
+}
+
+/**
+ * /packages "In every package" — grouped from §8.2 rows that every tier includes (values may
+ * differ by tier; the item itself is always there). Text is a summary of the sheet, not new claims.
+ */
+export const INCLUDED_IN_ALL: { title: string; specKeys: string[] }[] = [
+  { title: 'M sand, P sand & crushed-stone aggregate', specKeys: ['sand', 'plasteringSand', 'aggregate'] },
+  { title: '10 ft clear floor-to-floor height', specKeys: ['clearHeight'] },
+  { title: 'Plinth 2 ft above road level (car park 1.5 ft)', specKeys: ['plinthHeight'] },
+  { title: 'UPVC 2.5-track windows with 5mm glass', specKeys: ['windows'] },
+  { title: 'Underground sump + 1,000 L overhead tank', specKeys: ['sump', 'overheadTank'] },
+  {
+    title: '2 coats putty + 2 coats emulsion inside, Asian exterior emulsion outside',
+    specKeys: ['internalPaint', 'externalPaint'],
+  },
+  { title: 'Granite kitchen slab with SS sink', specKeys: ['kitchenSlab', 'kitchenBasin'] },
+  { title: 'Branded waterproofing (Dr. Fixit / Fosroc)', specKeys: ['waterproofing'] },
+];

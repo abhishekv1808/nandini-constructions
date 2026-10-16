@@ -5,10 +5,21 @@ import type { SiteConfig } from '@/types/site-config';
 import { cn } from '@/lib/utils';
 
 /** §4.8 — trust next to every form: Google rating, response promise, privacy line. */
-export function TrustNote({ config, tone = 'light' }: { config: SiteConfig; tone?: 'light' | 'dark' }) {
+export function TrustNote({
+  config,
+  tone = 'light',
+  inline = false,
+}: {
+  config: SiteConfig;
+  tone?: 'light' | 'dark';
+  /** One wrapping row instead of three lines (hero quote bar). */
+  inline?: boolean;
+}) {
   const muted = tone === 'dark' ? 'text-white/70' : 'text-ink/65';
   return (
-    <div className={cn('space-y-2 text-xs', muted)}>
+    <div
+      className={cn('text-xs', inline ? 'flex flex-wrap items-center gap-x-5 gap-y-2' : 'space-y-2', muted)}
+    >
       <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <StarIcon className="size-3.5 fill-amber-400 text-amber-400" aria-hidden />
         <span>Google rating</span>

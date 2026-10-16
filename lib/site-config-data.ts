@@ -13,7 +13,7 @@ function fromDb<T>(value: T | null | undefined, label: string): Field<T> {
 /**
  * Used until Supabase is connected. Tentative values come from Nandini Constructions' own
  * Instagram profile (@nandiniconstructions, CLAUDE.md §1.1) and render with a visible [CONFIRM]
- * marker. Numbers are never invented: all stats are missing.
+ * marker. Stats stay missing until supplied, except quality checks per stage (ITBIZone decision).
  */
 export const FALLBACK_SITE_CONFIG: SiteConfig = {
   source: 'fallback',
@@ -50,7 +50,8 @@ export const FALLBACK_SITE_CONFIG: SiteConfig = {
   stats: {
     projectsDelivered: missing('CONFIRM: projects delivered'),
     sqftBuilt: missing('CONFIRM: sq.ft built'),
-    qualityChecksPerStage: missing('CONFIRM: quality checks per stage'),
+    // ITBIZone decision 2026-10-16 (modest figure): get the client's sign-off before launch.
+    qualityChecksPerStage: { status: 'confirmed', value: 10 },
     yearsExperience: missing('CONFIRM: years of experience'),
   },
 };
@@ -83,7 +84,10 @@ export function mapSettingsRow(row: SiteSettingsRow): SiteConfig {
     stats: {
       projectsDelivered: fromDb(row.stats?.projects_delivered, 'CONFIRM: projects delivered'),
       sqftBuilt: fromDb(row.stats?.sqft_built, 'CONFIRM: sq.ft built'),
-      qualityChecksPerStage: fromDb(row.stats?.quality_checks_per_stage, 'CONFIRM: quality checks per stage'),
+      qualityChecksPerStage:
+        row.stats?.quality_checks_per_stage == null
+          ? f.stats.qualityChecksPerStage
+          : { status: 'confirmed', value: row.stats.quality_checks_per_stage },
       yearsExperience: fromDb(row.stats?.years_experience, 'CONFIRM: years of experience'),
     },
   };
