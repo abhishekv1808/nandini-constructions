@@ -26,7 +26,7 @@ export async function Header() {
         <Logo name={config.companyName} />
         <DesktopNav className="ml-6 hidden lg:flex" />
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
-          <Button asChild variant="ghost" size="icon" className="relative text-ink">
+          <Button asChild variant="ghost" size="icon" className="relative hidden text-ink md:inline-flex">
             <a href={call.href} aria-label={call.missing ? `Call us (${call.label})` : 'Call us'}>
               <PhoneIcon strokeWidth={1.5} />
               {call.missing && (

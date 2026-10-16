@@ -65,7 +65,7 @@ export function BrandMarquee({ groups }: { groups: BrandGroup[] }) {
   const half = Math.ceil(all.length / 2);
 
   return (
-    <section id="brands" aria-labelledby="brands-title" className="overflow-hidden bg-sand py-16 md:py-24">
+    <section id="brands" aria-labelledby="brands-title" className="overflow-hidden bg-sand py-12 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="brands-title"

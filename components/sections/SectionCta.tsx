@@ -23,11 +23,11 @@ export function SectionCta({
   return (
     <Reveal
       className={cn(
-        'mt-12 flex flex-col items-start gap-4 rounded-(--radius-card) border border-line bg-sand p-5 sm:flex-row sm:items-center sm:justify-between md:p-6',
+        'mt-8 flex flex-col items-start gap-4 rounded-(--radius-card) border border-line bg-sand p-5 sm:flex-row sm:items-center sm:justify-between md:mt-12 md:p-6',
         className,
       )}
     >
-      <p className="font-heading text-lg font-bold text-ink">{text}</p>
+      <p className="font-heading text-base font-bold text-ink md:text-lg">{text}</p>
       {kind === 'quote' && (
         <Button asChild>
           <Link href={QUOTE_HREF}>

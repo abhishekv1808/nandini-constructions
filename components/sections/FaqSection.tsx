@@ -17,7 +17,7 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
   };
 
   return (
-    <section aria-labelledby="faq" className="bg-sand py-16 md:py-24">
+    <section aria-labelledby="faq" className="bg-sand py-12 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}

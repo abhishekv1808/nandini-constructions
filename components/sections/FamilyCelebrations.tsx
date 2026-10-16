@@ -19,12 +19,7 @@ import { useState } from 'react';
 import { Reveal } from '@/components/motion/Reveal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import {
   FAMILY_MOMENT_CATEGORIES,
   FAMILY_MOMENTS,
@@ -59,7 +54,7 @@ export function FamilyCelebrations() {
     <section
       id="family-celebrations"
       aria-labelledby="family-celebrations-title"
-      className="relative overflow-hidden bg-white py-16 md:py-24"
+      className="relative overflow-hidden bg-white py-12 md:py-24"
     >
       {/* Subtle brand ambient backdrop glow */}
       <div
@@ -272,7 +267,7 @@ export function FamilyCelebrations() {
                         {moment.categoryLabel}
                       </Badge>
 
-                      <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-white text-ink opacity-0 shadow-md transition-all duration-300 group-hover:opacity-100 group-hover:scale-105">
+                      <span className="absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-full bg-white text-ink opacity-0 shadow-md transition-all duration-300 group-hover:scale-105 group-hover:opacity-100">
                         <Maximize2Icon className="size-4" />
                       </span>
                     </div>
@@ -285,13 +280,11 @@ export function FamilyCelebrations() {
                           <span>{moment.locality}</span>
                         </div>
 
-                        <h4 className="font-heading text-base font-bold leading-snug text-ink transition-colors group-hover:text-brand-dark">
+                        <h4 className="font-heading text-base leading-snug font-bold text-ink transition-colors group-hover:text-brand-dark">
                           {moment.title}
                         </h4>
 
-                        <p className="line-clamp-2 text-xs leading-relaxed text-ink/70">
-                          {moment.subtitle}
-                        </p>
+                        <p className="line-clamp-2 text-xs leading-relaxed text-ink/70">{moment.subtitle}</p>
                       </div>
 
                       <div className="mt-4 border-t border-line pt-3">
@@ -331,7 +324,7 @@ export function FamilyCelebrations() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-white sm:bottom-6 sm:left-6 sm:right-6">
+                <div className="absolute right-4 bottom-4 left-4 text-white sm:right-6 sm:bottom-6 sm:left-6">
                   <div className="mb-2 flex flex-wrap gap-2">
                     <Badge variant="brand">{activeMoment.categoryLabel}</Badge>
                     <Badge variant="dark" className="bg-white/20 backdrop-blur-xs">
@@ -362,35 +355,33 @@ export function FamilyCelebrations() {
 
                 {/* Narrative */}
                 <div className="space-y-2">
-                  <h4 className="font-heading text-sm font-bold text-ink uppercase tracking-wider">
+                  <h4 className="font-heading text-sm font-bold tracking-wider text-ink uppercase">
                     The Story Behind This Milestone
                   </h4>
-                  <p className="text-sm leading-relaxed text-ink/80 sm:text-base">
-                    {activeMoment.story}
-                  </p>
+                  <p className="text-sm leading-relaxed text-ink/80 sm:text-base">{activeMoment.story}</p>
                 </div>
 
                 {/* Specifications Grid */}
                 <div className="rounded-2xl border border-line bg-sand p-5">
-                  <h4 className="mb-3 font-heading text-xs font-bold uppercase tracking-wider text-ink/70">
+                  <h4 className="mb-3 font-heading text-xs font-bold tracking-wider text-ink/70 uppercase">
                     Project Snapshot
                   </h4>
-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 text-xs">
+                  <div className="grid grid-cols-2 gap-4 text-xs sm:grid-cols-4">
                     <div>
                       <span className="text-ink/60">Family:</span>
-                      <p className="font-bold text-ink text-sm">{activeMoment.familyName}</p>
+                      <p className="text-sm font-bold text-ink">{activeMoment.familyName}</p>
                     </div>
                     <div>
                       <span className="text-ink/60">Locality:</span>
-                      <p className="font-bold text-ink text-sm">{activeMoment.locality}</p>
+                      <p className="text-sm font-bold text-ink">{activeMoment.locality}</p>
                     </div>
                     <div>
                       <span className="text-ink/60">Package:</span>
-                      <p className="font-bold text-brand-dark text-sm">{activeMoment.packageName}</p>
+                      <p className="text-sm font-bold text-brand-dark">{activeMoment.packageName}</p>
                     </div>
                     <div>
                       <span className="text-ink/60">Dimensions:</span>
-                      <p className="font-bold text-ink text-sm">{activeMoment.plotOrSize}</p>
+                      <p className="text-sm font-bold text-ink">{activeMoment.plotOrSize}</p>
                     </div>
                   </div>
                 </div>
@@ -414,12 +405,7 @@ export function FamilyCelebrations() {
                       Build a Home Like This <ArrowRightIcon className="size-4" />
                     </Link>
                   </Button>
-                  <Button
-                    asChild
-                    variant="secondary"
-                    size="lg"
-                    className="w-full sm:w-auto"
-                  >
+                  <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
                     <a href="#cost-estimate" onClick={() => setActiveMoment(null)}>
                       Calculate Construction Cost
                     </a>

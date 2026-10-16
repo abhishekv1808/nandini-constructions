@@ -110,7 +110,7 @@ export default async function PackagesPage() {
                 </li>
               </ol>
             </nav>
-            <p className="text-sm font-semibold tracking-[0.16em] text-sky-light uppercase">
+            <p className="text-xs font-semibold tracking-[0.14em] text-sky-light uppercase md:text-sm md:tracking-[0.16em]">
               Construction packages · Tumakuru
             </p>
             <SplitHeading
@@ -119,20 +119,20 @@ export default async function PackagesPage() {
               immediate
               accent="upfront"
               text="Every material, brand and finish — listed upfront."
-              className="text-[2.25rem] leading-[1.06] font-extrabold text-white sm:text-5xl xl:text-6xl"
+              className="text-[1.875rem] leading-[1.1] font-extrabold text-white sm:text-5xl xl:text-6xl"
               accentClassName="text-sky-light"
             />
-            <p className="max-w-xl text-lg text-white/80">
+            <p className="max-w-xl text-base text-white/80 sm:text-lg">
               Three turnkey packages from {formatRate(lowest)}. Compare cement, steel, doors, tiles, wiring
               and fittings line by line — so the price you agree is the home you get.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="max-sm:h-12 max-sm:text-base">
                 <a href="#quote">
                   Get Free Quote <ArrowRightIcon strokeWidth={1.5} />
                 </a>
               </Button>
-              <Button asChild size="lg" variant="outline-light">
+              <Button asChild size="lg" variant="outline-light" className="max-sm:h-12 max-sm:text-base">
                 <a href="#compare">
                   <ListChecksIcon strokeWidth={1.5} /> Compare all specs
                 </a>
@@ -185,7 +185,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Package cards */}
-      <section id="choose" aria-labelledby="choose-title" className="bg-sand py-16 md:py-24">
+      <section id="choose" aria-labelledby="choose-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="choose-title"
@@ -204,7 +204,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* In every package */}
-      <section aria-labelledby="included-title" className="bg-white py-16 md:py-24">
+      <section aria-labelledby="included-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="included-title"
@@ -219,7 +219,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Upgrade path */}
-      <section aria-labelledby="upgrades-title" className="bg-sand py-16 md:py-24">
+      <section aria-labelledby="upgrades-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="upgrades-title"
@@ -239,7 +239,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Full comparison */}
-      <section id="compare" aria-labelledby="compare-title" className="bg-white py-16 md:py-24">
+      <section id="compare" aria-labelledby="compare-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="compare-title"
@@ -254,7 +254,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Quiz */}
-      <section id="package-quiz" aria-labelledby="quiz-title" className="bg-sand py-16 md:py-24">
+      <section id="package-quiz" aria-labelledby="quiz-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="quiz-title"
@@ -269,7 +269,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Allowances */}
-      <section aria-labelledby="allowances-title" className="bg-white py-16 md:py-24">
+      <section aria-labelledby="allowances-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="allowances-title"
@@ -284,7 +284,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Terms & exclusions */}
-      <section aria-labelledby="terms-title" className="bg-sand py-16 md:py-24">
+      <section aria-labelledby="terms-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="terms-title"
@@ -322,7 +322,7 @@ export default async function PackagesPage() {
       </section>
 
       {/* Cost estimate */}
-      <section id="cost-estimate" aria-labelledby="cost-estimate-title" className="bg-white py-16 md:py-24">
+      <section id="cost-estimate" aria-labelledby="cost-estimate-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="cost-estimate-title"

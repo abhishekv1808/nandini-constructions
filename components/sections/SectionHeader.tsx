@@ -30,23 +30,33 @@ export function SectionHeader({
     <Reveal
       className={cn(
         'max-w-2xl space-y-3',
-        !action && 'mb-10 md:mb-12',
+        !action && 'mb-8 md:mb-12',
         align === 'center' && 'mx-auto text-center',
         !action && className,
       )}
     >
       <p
         className={cn(
-          'text-sm font-semibold tracking-[0.16em] uppercase',
+          'text-xs font-semibold tracking-[0.14em] uppercase md:text-sm md:tracking-[0.16em]',
           tone === 'dark' ? 'text-sky-light' : 'text-brand-dark',
         )}
       >
         {eyebrow}
       </p>
-      <h2 id={id} className={cn('text-3xl font-extrabold md:text-4xl', tone === 'dark' && 'text-white')}>
+      <h2
+        id={id}
+        className={cn(
+          'text-[1.625rem] leading-[1.15] font-extrabold sm:text-3xl md:text-4xl',
+          tone === 'dark' && 'text-white',
+        )}
+      >
         {title}
       </h2>
-      {text && <p className={cn('text-lg', tone === 'dark' ? 'text-white/75' : 'text-ink/70')}>{text}</p>}
+      {text && (
+        <p className={cn('text-base md:text-lg', tone === 'dark' ? 'text-white/75' : 'text-ink/70')}>
+          {text}
+        </p>
+      )}
     </Reveal>
   );
 
@@ -55,7 +65,7 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        'mb-10 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10',
+        'mb-8 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10',
         className,
       )}
     >

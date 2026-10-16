@@ -177,8 +177,8 @@ The home page should feel like watching a Nandini home being built as you scroll
 
 ## 4. Conversion Architecture (non-negotiable)
 
-1. **Sticky header CTA** — "Get Free Quote" button always visible; phone icon on mobile.
-2. **Mobile sticky bottom bar** — `Call` | `WhatsApp` | `Get Quote` (appears after 300px scroll).
+1. **Sticky header CTA** — "Get Free Quote" button always visible; phone icon from `md` up (on phones, Call lives in the bottom bar).
+2. **Mobile sticky bottom bar** — `Call` | `WhatsApp` | **Get Free Quote** (widest cell). Appears after 120px of scroll, jumps to the page's own `#quote` form when present, and slides away while any lead form (`form[data-lead-form]`) is on screen so it never covers a submit button.
 3. **Floating WhatsApp button** (desktop) with pre-filled message: *"Hi Nandini Constructions, I'd like a quote for building on my plot."*
 4. **Hero lead form** (short: Name, Phone, Plot location, Plot size) — above the fold on desktop, one tap away on mobile.
 5. **Cost calculator → lead capture**: show the estimate range freely; detailed package-wise breakdown unlocked by phone number (soft gate — never block the basic number).

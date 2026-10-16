@@ -53,12 +53,12 @@ function Choice<T extends string>({
         </span>
         {legend}
       </legend>
-      <div className="grid gap-2 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-2">
         {options.map((o) => (
           <label
             key={o.value}
             className={cn(
-              'flex min-h-14 cursor-pointer flex-col justify-center rounded-xl border px-4 py-2 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand',
+              'flex min-h-14 cursor-pointer flex-col justify-center rounded-xl border px-3 py-2 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand sm:px-4',
               value === o.value ? 'border-ink bg-ink text-white' : 'border-line bg-white hover:border-ink/40',
             )}
           >
@@ -70,7 +70,7 @@ function Choice<T extends string>({
               onChange={() => onChange(o.value)}
               className="sr-only"
             />
-            <span className="text-[0.9375rem] font-semibold">{o.label}</span>
+            <span className="text-sm leading-snug font-semibold sm:text-[0.9375rem]">{o.label}</span>
             {o.hint && (
               <span className={cn('text-xs', value === o.value ? 'text-white/75' : 'text-ink/60')}>
                 {o.hint}
@@ -153,7 +153,10 @@ export function PackageQuiz({
         />
       </div>
 
-      <div className="flex flex-col gap-5 bg-sand p-5 md:p-8" aria-live="polite">
+      <div
+        className={cn('flex flex-col gap-5 bg-sand p-5 md:p-8', !complete && 'max-lg:hidden')}
+        aria-live="polite"
+      >
         {complete && tier ? (
           <>
             <div className="space-y-2">

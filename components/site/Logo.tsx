@@ -37,7 +37,7 @@ export function Logo({
           'shrink-0',
           tone === 'light' &&
             (isLarge
-              ? 'rounded-xl sm:rounded-2xl bg-white p-2 sm:p-2.5 shadow-sm'
+              ? 'rounded-xl bg-white p-2 shadow-sm sm:rounded-2xl sm:p-2.5'
               : 'rounded-xl bg-white p-1.5 shadow-xs'),
         )}
       >
@@ -47,21 +47,14 @@ export function Logo({
           width={268}
           height={256}
           priority={tone === 'dark'}
-          className={cn(
-            'w-auto object-contain',
-            isLarge
-              ? 'h-14 sm:h-16 md:h-20'
-              : 'h-11 sm:h-12 md:h-14',
-          )}
+          className={cn('w-auto object-contain', isLarge ? 'h-14 sm:h-16 md:h-20' : 'h-10 sm:h-12 md:h-14')}
         />
       </span>
       <span className={cn('flex flex-col', isLarge ? 'gap-1.5 sm:gap-2' : 'gap-1 sm:gap-1.5')}>
         <span
           className={cn(
             'font-heading leading-[1.05] font-black tracking-wide uppercase',
-            isLarge
-              ? 'text-lg sm:text-xl md:text-2xl'
-              : 'text-[0.9375rem] sm:text-[1.0625rem] md:text-lg',
+            isLarge ? 'text-lg sm:text-xl md:text-2xl' : 'text-[0.8125rem] sm:text-[1.0625rem] md:text-lg',
             tone === 'dark' ? 'text-charcoal' : 'text-white',
           )}
         >

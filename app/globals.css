@@ -57,7 +57,7 @@
 /* ─── Layout + z-index plan (CLAUDE.md §3.7) ─────────────────────────────── */
 :root {
   --header-h: 70px;
-  --mobile-bar-h: 64px;
+  --mobile-bar-h: 76px;
 
   --z-scene: 10;
   --z-header: 50;
@@ -85,6 +85,7 @@
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
+    overflow-x: clip; /* reveal start offsets must never cause sideways scroll on phones */
     font-size: 1rem;
     line-height: 1.6;
   }
@@ -238,6 +239,15 @@ html:not(.motion-ok) .pinned-sticky,
 /* ─── Package comparison "only differences" (CSS-only toggle) ────────────── */
 .spec-compare:has(.only-diff:checked) [data-same] {
   display: none;
+}
+
+/* Phones: show only the package picked in the tabs (radios, no JS). */
+@media (max-width: 47.99rem) {
+  .spec-compare:has(.tier-view[value='rental']:checked) [data-tier]:not([data-tier='rental']),
+  .spec-compare:has(.tier-view[value='medium']:checked) [data-tier]:not([data-tier='medium']),
+  .spec-compare:has(.tier-view[value='premium']:checked) [data-tier]:not([data-tier='premium']) {
+    display: none;
+  }
 }
 
 /* ─── Brand marquee — CSS only; static wrap without JS / with reduced motion ── */

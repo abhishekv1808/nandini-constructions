@@ -37,7 +37,7 @@ export function ElevationGallery({ items }: { items: Elevation[] }) {
     <section
       id="elevations"
       aria-labelledby="elevations-title"
-      className="overflow-hidden bg-sand py-16 md:py-24"
+      className="overflow-hidden bg-sand py-12 md:py-24"
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader

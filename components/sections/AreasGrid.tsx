@@ -8,7 +8,7 @@ import { SectionHeader } from './SectionHeader';
 /** §6.1 #11 — chip grid → local SEO pages (Phase 5). Area list is [CONFIRM]. */
 export function AreasGrid({ areas }: { areas: string[] }) {
   return (
-    <section aria-labelledby="areas" className="bg-white py-16 md:py-24">
+    <section aria-labelledby="areas" className="bg-white py-12 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="areas"

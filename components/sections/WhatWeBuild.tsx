@@ -92,7 +92,7 @@ function CardArrow({ tone }: { tone: 'photo' | 'dark' | 'light' }) {
 /** §6.1 #3 — bento of the four services; photo cards use real client imagery. */
 export function WhatWeBuild() {
   return (
-    <section aria-labelledby="what-we-build" className="bg-white py-16 md:py-24">
+    <section aria-labelledby="what-we-build" className="bg-white py-12 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="what-we-build"

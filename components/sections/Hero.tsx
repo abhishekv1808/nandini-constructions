@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { SplitHeading } from '@/components/motion/SplitHeading';
 import { LeadForm } from '@/components/forms/LeadForm';
 import { TrustNote } from '@/components/forms/TrustNote';
-import { Button } from '@/components/ui/button';
 import { ELEVATIONS } from '@/lib/data/elevations';
 import { TIERS, formatRate } from '@/lib/data/packages';
 import type { SiteConfig } from '@/types/site-config';
@@ -29,7 +28,7 @@ export function Hero({ config }: { config: SiteConfig }) {
       {/* Elevation: banner on phones, right-hand background on desktop */}
       <HeroBackdrop
         maxShade={0.35}
-        className="relative aspect-[4/3] sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[62%]"
+        className="relative aspect-[16/11] sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[62%]"
       >
         <Image
           src={HERO_ELEVATION.image}
@@ -65,7 +64,7 @@ export function Hero({ config }: { config: SiteConfig }) {
       </Link>
 
       <div className="relative mx-auto w-full max-w-7xl px-4 md:px-6">
-        <div className="-mt-6 max-w-xl space-y-5 sm:-mt-10 lg:mt-0 lg:max-w-[38rem] lg:pt-10 xl:max-w-2xl">
+        <div className="-mt-6 max-w-xl space-y-4 sm:-mt-10 sm:space-y-5 lg:mt-0 lg:max-w-[38rem] lg:pt-10 xl:max-w-2xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-charcoal shadow-sm ring-1 ring-line">
             <span className="size-2 rounded-full bg-success" aria-hidden="true" />
             Turnkey home construction in Tumakuru
@@ -76,39 +75,27 @@ export function Hero({ config }: { config: SiteConfig }) {
             immediate
             accent="home"
             text="Build your dream home in Tumakuru — at a fixed price, delivered on time."
-            className="text-[2.25rem] leading-[1.06] font-extrabold text-ink sm:text-5xl xl:text-[3.5rem]"
+            className="text-[1.875rem] leading-[1.1] font-extrabold text-ink sm:text-5xl xl:text-[3.5rem]"
             accentClassName="text-brand"
           />
-          <p className="max-w-lg text-lg text-ink/70">
+          <p className="max-w-lg text-base text-ink/70 sm:text-lg">
             One friendly team from design to handover — with every material, brand and finish listed upfront.
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row lg:hidden">
-            <Button asChild size="lg">
-              <a href="#hero-form">
-                Get Free Quote <ArrowRightIcon strokeWidth={1.5} />
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="secondary">
-              <a href="#cost-estimate">
-                <CalculatorIcon strokeWidth={1.5} /> Calculate Cost
-              </a>
-            </Button>
-          </div>
         </div>
 
         {/* Quick quote bar */}
         <div
           id="hero-form"
-          className="mt-10 mb-12 rounded-[22px] bg-white/95 p-5 shadow-[0_24px_60px_-20px_rgba(23,17,61,0.35)] ring-1 ring-line backdrop-blur-md sm:p-6 lg:mt-12 lg:mb-14"
+          className="mt-6 mb-10 rounded-[22px] bg-white/95 p-4 shadow-[0_24px_60px_-20px_rgba(23,17,61,0.35)] ring-1 ring-line backdrop-blur-md sm:p-6 lg:mt-12 lg:mb-14"
         >
           <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-            <h2 className="text-lg font-extrabold">Get a free quote for your plot</h2>
+            <h2 className="text-base font-extrabold sm:text-lg">Get a free quote for your plot</h2>
             <a
               href="#cost-estimate"
-              className="hidden items-center gap-1.5 text-sm font-semibold text-brand-dark underline-offset-4 hover:underline lg:inline-flex"
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-brand-dark underline-offset-4 hover:underline lg:min-h-0"
             >
               <CalculatorIcon className="size-4" strokeWidth={1.5} aria-hidden />
-              Or calculate your cost first
+              Calculate your cost first
             </a>
           </div>
           <LeadForm formType="hero" layout="bar" trust={<TrustNote config={config} inline />} />

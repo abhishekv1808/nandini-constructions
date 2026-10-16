@@ -9,7 +9,7 @@ import { SectionHeader } from './SectionHeader';
  */
 export function Testimonials({ config }: { config: SiteConfig }) {
   return (
-    <section aria-labelledby="testimonials" className="bg-white py-16 md:py-24">
+    <section aria-labelledby="testimonials" className="bg-white py-12 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="testimonials"

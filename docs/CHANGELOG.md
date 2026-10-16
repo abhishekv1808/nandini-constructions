@@ -2,6 +2,18 @@
 
 Short log of what each phase delivered and the decisions behind it. Newest first.
 
+## Mobile pass — type, spacing, bottom bar (2026-10-16)
+
+Audited every page at 375×812 (phone emulation via Chrome DevTools protocol, motion on and off).
+
+- **Type scale on phones**: section H2 30→26px, page H1s 36→30px, final-CTA H2 36→28px, eyebrows 14→12px, section subtext and hero intros 18→16px. Desktop sizes unchanged.
+- **Spacing on phones**: section padding 64→48px (`py-12 md:py-24` everywhere), header block margin 40→32px, section CTA margin 48→32px.
+- **Header**: logo name no longer collides with the phone icon (smaller two-line name on phones); the phone icon moves to the bottom bar below `md`.
+- **Bottom bar** redesigned for leads: Call | WhatsApp | big red "Get Free Quote →"; shows after 120px; targets the on-page `#quote` form; hides while a lead form is visible. `--mobile-bar-h` 76px.
+- **Spec comparison on phones**: Rental / Medium / Premium tabs (popular pre-selected) + 2-column table — no sideways scrolling (radios + CSS `:has()`, no JS). Home page opens only the first spec group (`collapsed`). md+ keeps the 3-column table.
+- **Shorter page**: home went from 28.5k to ~25k px on phones; Instagram moments show 6 videos on phones with "Show all"; quiz options in 2 columns and its empty result panel hidden on phones until the quiz is complete; hero drops its duplicate buttons (the form follows directly).
+- **Horizontal overflow** from slide-in reveals clipped site-wide (`body { overflow-x: clip }` — keeps `position: sticky` working).
+
 ## Stat: quality checks per stage = 10 (2026-10-16)
 
 - ITBIZone decision (at Abhishek's request, kept deliberately modest): stats band now shows **10 quality checks per stage** instead of the CONFIRM chip. Set in `FALLBACK_SITE_CONFIG`; still needs the client's sign-off before launch (§15 Q6/Q7). Other stats stay CONFIRM.

@@ -45,19 +45,22 @@ export function FinalCta({
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:px-6 md:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
         <Reveal className="space-y-6">
           <p className="text-sm font-semibold tracking-[0.16em] text-sky-light uppercase">Free quote</p>
-          <h2 id="final-cta" className="text-4xl font-extrabold text-white md:text-5xl">
+          <h2
+            id="final-cta"
+            className="text-[1.75rem] leading-[1.12] font-extrabold text-white sm:text-4xl md:text-5xl"
+          >
             {title}
           </h2>
-          <p className="max-w-md text-lg text-white/75">
+          <p className="max-w-md text-base text-white/75 md:text-lg">
             Share a few details and an engineer will call you to discuss your plot, package and budget.
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" variant="inverse">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row">
+            <Button asChild size="lg" variant="inverse" className="max-sm:h-12 max-sm:px-4 max-sm:text-base">
               <a href={call.href}>
                 <PhoneIcon strokeWidth={1.5} /> Call us
               </a>
             </Button>
-            <Button asChild size="lg" variant="whatsapp">
+            <Button asChild size="lg" variant="whatsapp" className="max-sm:h-12 max-sm:px-4 max-sm:text-base">
               <a href={whatsapp.href} {...(whatsapp.external ? { target: '_blank', rel: 'noopener' } : {})}>
                 <WhatsAppIcon /> WhatsApp
               </a>

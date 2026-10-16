@@ -100,7 +100,7 @@ export default async function HomePage() {
             text="All three packages, line by line — straight from our package sheet."
           />
           <Reveal>
-            <PackageComparison tiers={TIERS} categories={SPEC_CATEGORIES} />
+            <PackageComparison tiers={TIERS} categories={SPEC_CATEGORIES} collapsed />
           </Reveal>
           <Reveal className="mt-8 grid gap-6 rounded-(--radius-card) border border-line bg-sand p-5 md:grid-cols-2 md:p-8">
             <div>
@@ -125,7 +125,7 @@ export default async function HomePage() {
       </section>
 
       {/* Cost estimate, right after the prices — sand */}
-      <section id="cost-estimate" aria-labelledby="cost-estimate-title" className="bg-sand py-16 md:py-24">
+      <section id="cost-estimate" aria-labelledby="cost-estimate-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="cost-estimate-title"
@@ -141,7 +141,7 @@ export default async function HomePage() {
 
       {/* ── 3. Why trust us ───────────────────────────────────────────── */}
       {/* Why Nandini — white */}
-      <section id="why-nandini" aria-labelledby="why-nandini-title" className="bg-white py-16 md:py-24">
+      <section id="why-nandini" aria-labelledby="why-nandini-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="why-nandini-title"
@@ -158,7 +158,7 @@ export default async function HomePage() {
       <ProjectsRail projects={SAMPLE_PROJECTS} packageNames={packageNames} />
 
       {/* How it works — white */}
-      <section id="how-it-works" aria-labelledby="how-it-works-title" className="bg-white py-16 md:py-24">
+      <section id="how-it-works" aria-labelledby="how-it-works-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-5xl px-4 md:px-6">
           <SectionHeader
             id="how-it-works-title"

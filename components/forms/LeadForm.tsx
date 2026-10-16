@@ -127,7 +127,7 @@ export function LeadForm({
   }
 
   return (
-    <form action={action} className={cn('space-y-4', className)} noValidate>
+    <form action={action} className={cn('space-y-4', className)} noValidate data-lead-form="">
       <input type="hidden" name="formType" value={formType} />
       <input type="hidden" name="sourcePage" value={pathname} />
       {variant === 'hero' && packageInterest && (

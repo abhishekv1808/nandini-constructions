@@ -92,7 +92,9 @@ function MomentCard({
         >
           <PlayIcon className="ml-0.5 size-5 fill-current" aria-hidden />
         </span>
-        <span className="block font-heading text-base leading-snug font-bold md:text-lg">{moment.title}</span>
+        <span className="block font-heading text-[0.9375rem] leading-snug font-bold md:text-lg">
+          {moment.title}
+        </span>
         {moment.place && (
           <span
             className={cn(
@@ -116,6 +118,8 @@ type Filter = 'all' | MomentKind;
  * Filterable grid of Instagram reels. Cards are real links to the post (work without JS); with JS
  * they open Instagram's official embed in a dialog. No Instagram code loads until a visitor taps.
  */
+const MOBILE_VISIBLE = 6;
+
 export function MomentsGrid({
   moments,
   posters,
@@ -125,6 +129,8 @@ export function MomentsGrid({
 }) {
   const [filter, setFilter] = useState<Filter>('all');
   const [active, setActive] = useState<InstagramMoment | null>(null);
+  // Phones show the first few videos; the rest are one tap away (keeps the page short).
+  const [expanded, setExpanded] = useState(false);
   const visible = filter === 'all' ? moments : moments.filter((m) => m.kind === filter);
 
   const open = (event: MouseEvent<HTMLAnchorElement>, moment: InstagramMoment) => {
@@ -157,12 +163,21 @@ export function MomentsGrid({
       </div>
 
       <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-        {visible.map((m) => (
-          <li key={m.code}>
+        {visible.map((m, i) => (
+          <li key={m.code} className={cn(i >= MOBILE_VISIBLE && !expanded && 'max-md:hidden')}>
             <MomentCard moment={m} poster={posters[m.code]} onOpen={open} />
           </li>
         ))}
       </ul>
+      {visible.length > MOBILE_VISIBLE && !expanded && (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="mt-4 flex min-h-12 w-full items-center justify-center rounded-full border border-ink/20 bg-white text-sm font-semibold text-ink md:hidden"
+        >
+          Show all {visible.length} videos
+        </button>
+      )}
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent className="max-w-[26rem] overflow-visible p-0" closeLabel="Close video">

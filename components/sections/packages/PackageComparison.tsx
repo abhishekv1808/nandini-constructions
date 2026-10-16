@@ -9,16 +9,48 @@ import {
 } from '@/lib/data/packages';
 import { cn } from '@/lib/utils';
 
-type PackageComparisonProps = { tiers: Tier[]; categories: SpecCategory[] };
+type PackageComparisonProps = {
+  tiers: Tier[];
+  categories: SpecCategory[];
+  /** Open only the first category (home page — keeps the section short on phones). */
+  collapsed?: boolean;
+};
 
 /**
  * Full §8.2 comparison: collapsible categories, "only differences" toggle, cells that change
- * from the previous tier highlighted, ₹ allowances marked. Horizontal scroll with a sticky first
- * column on mobile. Server Component: the toggle is a checkbox + CSS `:has()` (works without JS).
+ * from the previous tier highlighted, ₹ allowances marked. Phones: tabs pick one package and the
+ * table shows spec + that package (no sideways scroll); md+: all three columns. Server Component —
+ * tabs and the toggle are radios/checkbox + CSS `:has()` in globals.css (work without JS).
  */
-export function PackageComparison({ tiers, categories }: PackageComparisonProps) {
+export function PackageComparison({ tiers, categories, collapsed = false }: PackageComparisonProps) {
+  const defaultTier = tiers.find((t) => t.isPopular)?.slug ?? tiers[0]?.slug;
   return (
     <div className="spec-compare space-y-4">
+      <fieldset className="md:hidden">
+        <legend className="sr-only">Show package</legend>
+        <div className="grid grid-cols-3 gap-1 rounded-2xl bg-sand p-1 ring-1 ring-line">
+          {tiers.map((t) => (
+            <label
+              key={t.slug}
+              className="flex min-h-12 cursor-pointer flex-col items-center justify-center rounded-xl px-1 text-center text-ink/75 transition-colors has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand"
+            >
+              <input
+                type="radio"
+                name="spec-tier-view"
+                value={t.slug}
+                defaultChecked={t.slug === defaultTier}
+                className="tier-view sr-only"
+              />
+              <span className="text-sm font-bold">{t.shortName}</span>
+              <span className="text-[0.6875rem] font-semibold opacity-80">{formatRate(t.ratePerSqft)}</span>
+            </label>
+          ))}
+        </div>
+        <p className="mt-2 flex items-center gap-2 text-xs text-ink/60">
+          <span className="inline-block size-3 rounded-sm bg-brand-soft ring-1 ring-brand/20" aria-hidden />
+          Highlighted = upgraded from the package below
+        </p>
+      </fieldset>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="flex items-start gap-2 text-sm text-ink/75">
           <InfoIcon className="mt-0.5 size-4 shrink-0 text-brand-dark" strokeWidth={1.5} aria-hidden />
@@ -32,9 +64,9 @@ export function PackageComparison({ tiers, categories }: PackageComparisonProps)
         </label>
       </div>
 
-      <div className="overflow-x-auto rounded-(--radius-card) border border-line bg-white">
-        <div className="min-w-[44rem]">
-          <div className="grid grid-cols-[minmax(10rem,1.1fr)_repeat(3,minmax(0,1fr))] border-b border-line bg-sand text-sm">
+      <div className="overflow-hidden rounded-(--radius-card) border border-line bg-white md:overflow-x-auto">
+        <div className="md:min-w-[44rem]">
+          <div className="hidden grid-cols-[minmax(10rem,1.1fr)_repeat(3,minmax(0,1fr))] border-b border-line bg-sand text-sm md:grid">
             <div className="sticky left-0 z-[1] bg-sand p-3 font-semibold text-ink/70">Specification</div>
             {tiers.map((t) => (
               <div key={t.slug} className={cn('p-3', t.isPopular && 'bg-brand-soft/70')}>
@@ -44,13 +76,13 @@ export function PackageComparison({ tiers, categories }: PackageComparisonProps)
             ))}
           </div>
 
-          {categories.map((category) => {
+          {categories.map((category, ci) => {
             const rows = category.rows;
             const allSame = !rows.some(rowDiffers);
             return (
               <details
                 key={category.key}
-                open
+                open={!collapsed || ci === 0}
                 data-same={allSame ? '' : undefined}
                 className="group border-b border-line last:border-b-0"
               >
@@ -62,10 +94,10 @@ export function PackageComparison({ tiers, categories }: PackageComparisonProps)
                   />
                   {category.name}
                 </summary>
-                <table className="w-full table-fixed text-sm">
+                <table className="w-full text-sm md:table-fixed">
                   <caption className="sr-only">{category.name}</caption>
                   <colgroup>
-                    <col className="w-[27.5%]" />
+                    <col className="md:w-[27.5%]" />
                     <col />
                     <col />
                     <col />
@@ -74,7 +106,7 @@ export function PackageComparison({ tiers, categories }: PackageComparisonProps)
                     <tr>
                       <th scope="col">Specification</th>
                       {tiers.map((t) => (
-                        <th key={t.slug} scope="col">
+                        <th key={t.slug} scope="col" data-tier={t.slug}>
                           {t.shortName}
                         </th>
                       ))}
@@ -89,7 +121,7 @@ export function PackageComparison({ tiers, categories }: PackageComparisonProps)
                       >
                         <th
                           scope="row"
-                          className="sticky left-0 bg-white p-3 text-left font-semibold text-ink"
+                          className="w-[42%] bg-white p-3 text-left font-semibold text-ink md:sticky md:left-0 md:w-auto"
                         >
                           {row.label}
                         </th>
@@ -98,7 +130,11 @@ export function PackageComparison({ tiers, categories }: PackageComparisonProps)
                           const prev = i > 0 ? tiers[i - 1] : undefined;
                           const changed = prev ? row.values[prev.slug] !== value : false;
                           return (
-                            <td key={t.slug} className={cn('p-3 text-ink/85', changed && 'bg-brand-soft/60')}>
+                            <td
+                              key={t.slug}
+                              data-tier={t.slug}
+                              className={cn('p-3 text-ink/85', changed && 'bg-brand-soft/60')}
+                            >
                               {value}
                               {isAllowance(value) && (
                                 <span className="ml-1 inline-block rounded bg-sand px-1 text-[0.6875rem] font-semibold text-ink/60">

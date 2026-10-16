@@ -62,7 +62,7 @@ function Band({
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn('py-16 md:py-24', i % 2 === 0 ? 'bg-white' : 'bg-sand')}
+      className={cn('py-12 md:py-24', i % 2 === 0 ? 'bg-white' : 'bg-sand')}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">{children}</div>
     </section>
@@ -226,7 +226,7 @@ export default async function ServicePage({ params }: Props) {
                 { name: service.title, href: `/services/${service.slug}` },
               ]}
             />
-            <p className="text-sm font-semibold tracking-[0.16em] text-sky-light uppercase">
+            <p className="text-xs font-semibold tracking-[0.14em] text-sky-light uppercase md:text-sm md:tracking-[0.16em]">
               {service.eyebrow}
             </p>
             <SplitHeading
@@ -235,10 +235,10 @@ export default async function ServicePage({ params }: Props) {
               immediate
               accent={service.accent}
               text={service.h1}
-              className="text-[2.25rem] leading-[1.06] font-extrabold text-white sm:text-5xl xl:text-[3.5rem]"
+              className="text-[1.875rem] leading-[1.1] font-extrabold text-white sm:text-5xl xl:text-[3.5rem]"
               accentClassName="text-sky-light"
             />
-            <p className="max-w-xl text-lg text-white/80">{service.intro}</p>
+            <p className="max-w-xl text-base text-white/80 sm:text-lg">{service.intro}</p>
             {service.pricing && (
               <p className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full bg-white/10 px-4 py-1.5 font-heading font-bold text-white ring-1 ring-white/20">
@@ -248,19 +248,19 @@ export default async function ServicePage({ params }: Props) {
               </p>
             )}
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="max-sm:h-12 max-sm:text-base">
                 <a href="#quote">
                   Get Free Quote <ArrowRightIcon strokeWidth={1.5} />
                 </a>
               </Button>
               {service.showPackages ? (
-                <Button asChild size="lg" variant="outline-light">
+                <Button asChild size="lg" variant="outline-light" className="max-sm:h-12 max-sm:text-base">
                   <a href="#cost-estimate">
                     <CalculatorIcon strokeWidth={1.5} /> Calculate Cost
                   </a>
                 </Button>
               ) : (
-                <Button asChild size="lg" variant="outline-light">
+                <Button asChild size="lg" variant="outline-light" className="max-sm:h-12 max-sm:text-base">
                   <a href={call.href}>
                     <PhoneIcon strokeWidth={1.5} /> Call us
                   </a>

@@ -46,7 +46,7 @@ export default async function ServicesPage() {
               { name: 'Services', href: '/services' },
             ]}
           />
-          <p className="text-sm font-semibold tracking-[0.16em] text-sky-light uppercase">
+          <p className="text-xs font-semibold tracking-[0.14em] text-sky-light uppercase md:text-sm md:tracking-[0.16em]">
             Our services · Tumakuru
           </p>
           <SplitHeading
@@ -55,20 +55,20 @@ export default async function ServicesPage() {
             immediate
             accent="build,"
             text="Whatever you’re planning to build, one team takes it from drawing to handover."
-            className="max-w-4xl text-[2.25rem] leading-[1.06] font-extrabold text-white sm:text-5xl xl:text-[3.5rem]"
+            className="max-w-4xl text-[1.875rem] leading-[1.1] font-extrabold text-white sm:text-5xl xl:text-[3.5rem]"
             accentClassName="text-sky-light"
           />
-          <p className="max-w-2xl text-lg text-white/80">
+          <p className="max-w-2xl text-base text-white/80 sm:text-lg">
             Homes, commercial buildings, interiors, renovations and architectural design — planned, built and
             finished by Nandini Constructions.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="max-sm:h-12 max-sm:text-base">
               <a href="#quote">
                 Get Free Quote <ArrowRightIcon strokeWidth={1.5} />
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline-light">
+            <Button asChild size="lg" variant="outline-light" className="max-sm:h-12 max-sm:text-base">
               <Link href="/packages">
                 <LayersIcon strokeWidth={1.5} /> See home packages
               </Link>
@@ -77,7 +77,7 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <section aria-labelledby="all-services-title" className="bg-sand py-16 md:py-24">
+      <section aria-labelledby="all-services-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             id="all-services-title"
@@ -120,7 +120,7 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <section aria-labelledby="services-process-title" className="bg-white py-16 md:py-24">
+      <section aria-labelledby="services-process-title" className="bg-white py-12 md:py-24">
         <div className="mx-auto max-w-5xl px-4 md:px-6">
           <SectionHeader
             id="services-process-title"
