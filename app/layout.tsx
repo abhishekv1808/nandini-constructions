@@ -35,7 +35,27 @@ export const metadata: Metadata = {
   },
   description:
     'Turnkey house and commercial construction in Tumakuru, from design to handover. Fixed package prices with every material and brand listed upfront.',
-  openGraph: { type: 'website', locale: 'en_IN', siteName: 'Nandini Constructions' },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    siteName: 'Nandini Constructions',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Nandini Constructions — Turnkey House Construction in Tumakuru',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nandini Constructions — House Construction in Tumakuru at Fixed Package Prices',
+    description:
+      'Turnkey house and commercial construction in Tumakuru, from design to handover. Fixed package prices with every material and brand listed upfront.',
+    images: ['/opengraph-image.jpg'],
+  },
   formatDetection: { telephone: false },
 };
 
