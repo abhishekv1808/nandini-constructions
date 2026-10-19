@@ -2,6 +2,15 @@
 
 Short log of what each phase delivered and the decisions behind it. Newest first.
 
+## No CONFIRM badges — launch-ready content (2026-10-19)
+
+- ITBIZone decision: no review markers on the site. Instagram-sourced facts (name, address, phone) are confirmed; WhatsApp = the same number; Google Maps link derived from the address.
+- Facts nobody supplied are **hidden, not invented**: Google rating/reviews, most company stats, email, office hours, GSTIN, founder. `Placeholder`/`ConfirmChip` render nothing (`NEXT_PUBLIC_SHOW_CONFIRM=1` shows markers for an internal review).
+- Stats band: real company stats first (currently the ITBIZone-set quality-checks figure), then verifiable package-sheet facts (₹1,850/sq.ft start, 31 specs listed, 24 brands, 10 ft clear height).
+- Off the home page until real content exists: `[SAMPLE]` projects rail, **Family Celebrations** and **Testimonials** (their current family names, quotes and photos are illustrative, not real clients — publishing them as real reviews would mislead buyers). Components and data are kept.
+- Lead form hands every valid enquiry to Nandini on WhatsApp (pre-filled message) until the Phase 6 pipeline stores leads.
+- "Why Nandini" promises reworded to match the package T&C and Instagram practice; section backgrounds re-balanced.
+
 ## Mobile pass — type, spacing, bottom bar (2026-10-16)
 
 Audited every page at 375×812 (phone emulation via Chrome DevTools protocol, motion on and off).

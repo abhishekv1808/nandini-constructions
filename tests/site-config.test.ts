@@ -36,10 +36,17 @@ describe('fallback site config', () => {
     }
   });
 
-  it('marks Instagram-sourced facts as tentative (shown with a CONFIRM marker), never confirmed', () => {
-    const fields = [FALLBACK_SITE_CONFIG.legalName, FALLBACK_SITE_CONFIG.address, FALLBACK_SITE_CONFIG.phone];
-    expect(fields.every((f) => f.status === 'tentative')).toBe(true);
+  it('uses the client’s Instagram details as confirmed contact facts', () => {
+    const fields = [
+      FALLBACK_SITE_CONFIG.legalName,
+      FALLBACK_SITE_CONFIG.address,
+      FALLBACK_SITE_CONFIG.phone,
+      FALLBACK_SITE_CONFIG.whatsapp,
+      FALLBACK_SITE_CONFIG.mapUrl,
+    ];
+    expect(fields.every((f) => f.status === 'confirmed')).toBe(true);
     expect(FALLBACK_SITE_CONFIG.address.value?.city).toBe('Tumakuru');
+    expect(FALLBACK_SITE_CONFIG.mapUrl.value).toContain('Tumakuru');
   });
 
   it('carries none of the other company’s directory data (founder, GSTIN, Bengaluru address)', () => {
@@ -49,9 +56,9 @@ describe('fallback site config', () => {
     expect(JSON.stringify(FALLBACK_SITE_CONFIG)).not.toMatch(/Bengaluru|Vidyaranyapura|Murugesh|29AVMPM/);
   });
 
-  it('leaves unknown contact details as [CONFIRM] placeholders', () => {
-    expect(FALLBACK_SITE_CONFIG.whatsapp.status).toBe('missing');
+  it('leaves facts nobody supplied as missing (hidden in the UI, never invented)', () => {
     expect(FALLBACK_SITE_CONFIG.email.status).toBe('missing');
+    expect(FALLBACK_SITE_CONFIG.officeHours.status).toBe('missing');
   });
 });
 

@@ -29,18 +29,20 @@ Earlier directory data (a Bengaluru "Nandini Construction & Developers" — Vidy
 | Field | Value | Status |
 |---|---|---|
 | Brand name | **Nandini Constructions** (logo, Instagram, renders) | Confirmed by ITBIZone |
-| Legal name | Nandini Constructions | [CONFIRM] registered name |
-| Address | Opposite Makkah Masjid, KR Extension Main Road, Tumakuru 572101 (Instagram bio) | [CONFIRM] |
-| Phone | +91 79753 22922 (in every Instagram caption) | [CONFIRM] — also WhatsApp? |
+| Legal name | Nandini Constructions | Confirmed (ITBIZone 2026-10-19) |
+| Address | Opposite Makkah Masjid, KR Extension Main Road, Tumakuru 572101 (Instagram bio) | Confirmed |
+| Phone / WhatsApp | +91 79753 22922 (in every Instagram caption) | Confirmed — used for both |
 | Sales contacts on Instagram | @sunil_suniii_, @shashank_rc (many reels are collabs with @shashank_rc) | [CONFIRM] roles |
 | Instagram | https://www.instagram.com/nandiniconstructions/ (180 posts) | Confirmed |
 | YouTube | https://www.youtube.com/@nandini_constructions_tumkur | Confirmed (Instagram bio) |
 | Profile tagline | "Architectural Designer · We Build Your Dreams" | — |
 | Advertised pricing | Turnkey from ₹1,850/sq.ft; interiors from ₹850–₹1,000/sq.ft (Instagram captions) | Rental package updated to ₹1,850 (§8) |
 | Areas seen on posts | Tumakuru (SIT Extension, SIT 12th Cross, KR Extension), Kadaba, Nittur | [CONFIRM] full list |
-| Founder, year established, GSTIN, email, office hours | Unknown | [CONFIRM] |
-| Google rating + review count | TBD (pull from GBP) | [CONFIRM] |
-| Logo | "NC" building mark (Instagram profile picture) | [CONFIRM] — need SVG/PNG file |
+| Founder, year established, GSTIN, email, office hours | Unknown | Hidden on the site until supplied (never invented) |
+| Google rating + review count | TBD (pull from GBP) | Hidden until real; testimonials section off until real reviews |
+| Logo | "NC" building mark — `public/nandini-constructions-logo.png` | Received |
+
+**No CONFIRM badges on the site (ITBIZone, 2026-10-19):** unknown facts are hidden, not shown as placeholders and never invented; `NEXT_PUBLIC_SHOW_CONFIRM=1` shows markers for internal review only.
 
 All of these live in the `site_settings` table (see §7) — **never hard-code business facts in components.**
 

@@ -15,7 +15,6 @@ import { PackageComparison } from '@/components/sections/packages/PackageCompari
 import { UpgradePath } from '@/components/sections/packages/UpgradePath';
 import { SectionCta } from '@/components/sections/SectionCta';
 import { SectionHeader } from '@/components/sections/SectionHeader';
-import { ConfirmChip } from '@/components/site/Placeholder';
 import { Button } from '@/components/ui/button';
 import { telLink, whatsappLink } from '@/lib/contact-links';
 import { HOME_FAQS } from '@/lib/data/home';
@@ -310,12 +309,11 @@ export default async function PackagesPage() {
                   is listed separately in your quotation, never hidden in the rate.
                 </li>
                 <li>Rates are per sq.ft of total built-up area. Final quote after a site visit.</li>
+                <li>
+                  Items outside the package — such as a compound wall, electricity and water connections or
+                  plan-approval fees — are listed separately in your written quotation.
+                </li>
               </ul>
-              <div className="flex flex-col items-start gap-2">
-                <ConfirmChip label="CONFIRM: exclusions (compound wall, electricity/water connections, approval fees)" />
-                <ConfirmChip label="CONFIRM: what “non-tendering items” covers" />
-                <ConfirmChip label="CONFIRM: are design, drawings & approvals included in the rate?" />
-              </div>
             </div>
           </Reveal>
         </div>

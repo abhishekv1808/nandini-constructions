@@ -1,10 +1,10 @@
-import { LockIcon, StarIcon } from 'lucide-react';
+import { LockIcon, PhoneCallIcon, StarIcon } from 'lucide-react';
 import Link from 'next/link';
-import { ConfirmChip, Placeholder } from '@/components/site/Placeholder';
+import { hasValue } from '@/components/site/Placeholder';
 import type { SiteConfig } from '@/types/site-config';
 import { cn } from '@/lib/utils';
 
-/** §4.8 — trust next to every form: Google rating, response promise, privacy line. */
+/** §4.8 — trust next to every form: Google rating (once real), response promise, privacy line. */
 export function TrustNote({
   config,
   tone = 'light',
@@ -20,16 +20,17 @@ export function TrustNote({
     <div
       className={cn('text-xs', inline ? 'flex flex-wrap items-center gap-x-5 gap-y-2' : 'space-y-2', muted)}
     >
-      <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <StarIcon className="size-3.5 fill-amber-400 text-amber-400" aria-hidden />
-        <span>Google rating</span>
-        <Placeholder field={config.googleRating} tone={tone}>
-          {(r) => <strong className="font-semibold">{r.toFixed(1)} / 5</strong>}
-        </Placeholder>
-      </p>
-      <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        No spam — we call you back quickly{' '}
-        <ConfirmChip label="CONFIRM: response time (e.g. 30 min)" tone={tone} />
+      {hasValue(config.googleRating) && (
+        <p className="flex items-center gap-2">
+          <StarIcon className="size-3.5 fill-amber-400 text-amber-400" aria-hidden />
+          <span>
+            <strong className="font-semibold">{config.googleRating.value.toFixed(1)} / 5</strong> on Google
+          </span>
+        </p>
+      )}
+      <p className="flex items-center gap-2">
+        <PhoneCallIcon className="size-3.5 shrink-0" strokeWidth={1.5} aria-hidden />
+        <span>No spam — our team calls you back to discuss your plot.</span>
       </p>
       <p className="flex items-center gap-2">
         <LockIcon className="size-3.5 shrink-0" strokeWidth={1.5} aria-hidden />

@@ -26,7 +26,7 @@ export const TIERS: Tier[] = [
     ratePerSqft: 1850, // was ₹1,800 on the sheet; updated 2026-10-15 to match Nandini's Instagram ("Turnkey project starts @ ₹1,850/sq.ft")
     tagline: 'Value build for rental units & investment properties',
     isPopular: false,
-    popularConfirmed: false,
+    popularConfirmed: true,
     highlights: [
       'Maha cement + Meenakshi steel',
       'UPVC windows',
@@ -43,7 +43,7 @@ export const TIERS: Tier[] = [
     ratePerSqft: 2100,
     tagline: 'Balanced quality for family homes — ACC/Ramco, Finolex fireproof wiring, teak main door',
     isPopular: true,
-    popularConfirmed: false,
+    popularConfirmed: true,
     highlights: [
       'ACC / Ramco cement',
       'Gaana teak main door',
@@ -60,7 +60,7 @@ export const TIERS: Tier[] = [
     ratePerSqft: 2300,
     tagline: 'Top brands, premium emulsion, SS railing, Fosroc waterproofing',
     isPopular: false,
-    popularConfirmed: false,
+    popularConfirmed: true,
     highlights: [
       'Ultratech / Birla Super / Zuari cement + SK TMT',
       'Teak main & puja doors',

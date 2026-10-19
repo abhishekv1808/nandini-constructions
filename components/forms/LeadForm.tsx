@@ -3,7 +3,7 @@
 import { CheckCircle2Icon, LoaderCircleIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useActionState, useCallback, useId, useState, type ReactNode } from 'react';
-import { ConfirmChip } from '@/components/site/Placeholder';
+import { WhatsAppIcon } from '@/components/site/icons';
 import { Button } from '@/components/ui/button';
 import { submitLead, type LeadFormState } from '@/lib/actions/lead';
 import type { TierSlug } from '@/lib/data/packages';
@@ -118,10 +118,22 @@ export function LeadForm({
 
   if (state.status === 'success') {
     return (
-      <div className={cn('space-y-3 rounded-2xl bg-white p-6 text-ink', className)} role="status">
+      <div className={cn('space-y-4 rounded-2xl bg-white p-6 text-ink', className)} role="status">
         <CheckCircle2Icon className="size-8 text-success" strokeWidth={1.5} aria-hidden />
         <p className="text-lg font-bold">{state.message}</p>
-        <ConfirmChip label="Preview build: lead storage & notifications arrive in Phase 6 — nothing was sent." />
+        {state.handoffUrl && (
+          <>
+            <p className="text-sm text-ink/70">
+              Tap below — WhatsApp opens with your details filled in. Just press send and our team will call
+              you back.
+            </p>
+            <Button asChild variant="whatsapp" size="lg" className="w-full">
+              <a href={state.handoffUrl} target="_blank" rel="noopener">
+                <WhatsAppIcon /> Send my details on WhatsApp
+              </a>
+            </Button>
+          </>
+        )}
       </div>
     );
   }

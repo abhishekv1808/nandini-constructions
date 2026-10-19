@@ -5,7 +5,6 @@ import { AreasGrid } from '@/components/sections/AreasGrid';
 import { BrandMarquee } from '@/components/sections/BrandMarquee';
 import { CalculatorTeaser } from '@/components/sections/CalculatorTeaser';
 import { ElevationGallery } from '@/components/sections/ElevationGallery';
-import { FamilyCelebrations } from '@/components/sections/FamilyCelebrations';
 import { FaqSection } from '@/components/sections/FaqSection';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Hero } from '@/components/sections/Hero';
@@ -13,23 +12,13 @@ import { InstagramMoments } from '@/components/sections/InstagramMoments';
 import { PackageComparison } from '@/components/sections/packages/PackageComparison';
 import { PackageSwitcher } from '@/components/sections/packages/PackageSwitcher';
 import { ProcessTimeline } from '@/components/sections/ProcessTimeline';
-import { ProjectsRail } from '@/components/sections/ProjectsRail';
 import { SectionCta } from '@/components/sections/SectionCta';
 import { SectionHeader } from '@/components/sections/SectionHeader';
 import { StatsBand } from '@/components/sections/StatsBand';
-import { Testimonials } from '@/components/sections/Testimonials';
 import { WhatWeBuild } from '@/components/sections/WhatWeBuild';
 import { WhyNandini } from '@/components/sections/WhyNandini';
-import { ConfirmChip } from '@/components/site/Placeholder';
 import { telLink, whatsappLink } from '@/lib/contact-links';
-import {
-  HOME_FAQS,
-  HOUSE_STAGES,
-  MATERIAL_BRANDS,
-  PROCESS_STEPS,
-  PROMISES,
-  SAMPLE_PROJECTS,
-} from '@/lib/data/home';
+import { HOME_FAQS, HOUSE_STAGES, MATERIAL_BRANDS, PROCESS_STEPS, PROMISES } from '@/lib/data/home';
 import { KEY_SPEC_KEYS, PACKAGE_TERMS, SPEC_CATEGORIES, TIERS, getSpecRow } from '@/lib/data/packages';
 import { ELEVATIONS } from '@/lib/data/elevations';
 import { INSTAGRAM_MOMENTS } from '@/lib/data/instagram';
@@ -59,7 +48,6 @@ export default async function HomePage() {
     }),
   }));
   const keySpecs = KEY_SPEC_KEYS.map((key) => getSpecRow(key));
-  const packageNames = Object.fromEntries(TIERS.map((t) => [t.slug, t.name]));
 
   return (
     <>
@@ -117,7 +105,11 @@ export default async function HomePage() {
                 Sump and overhead tank are included in every package. Rupee values are budgeted allowances —
                 upgrade any item and pay only the difference.
               </p>
-              <ConfirmChip label="CONFIRM: exclusions (e.g. compound wall, connections, approval fees) + what “non-tendering items” covers" />
+              <p className="text-[0.9375rem] text-ink/80">
+                Items outside the package — such as a compound wall, electricity and water connections or
+                plan-approval fees — are listed separately in your written quotation, so nothing comes as a
+                surprise.
+              </p>
             </div>
           </Reveal>
           <SectionCta kind="packages" text="See what every package includes and what each upgrade buys." />
@@ -154,11 +146,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured projects — sand */}
-      <ProjectsRail projects={SAMPLE_PROJECTS} packageNames={packageNames} />
-
-      {/* How it works — white */}
-      <section id="how-it-works" aria-labelledby="how-it-works-title" className="bg-white py-12 md:py-24">
+      {/* How it works — sand */}
+      <section id="how-it-works" aria-labelledby="how-it-works-title" className="bg-sand py-12 md:py-24">
         <div className="mx-auto max-w-5xl px-4 md:px-6">
           <SectionHeader
             id="how-it-works-title"
@@ -176,21 +165,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Material brands from the package sheet — sand */}
+      {/* Material brands from the package sheet — white */}
       <BrandMarquee groups={MATERIAL_BRANDS} />
 
       {/* ── 4. Real people, real homes ────────────────────────────────── */}
-      {/* Housewarming & handover moments — white */}
-      <FamilyCelebrations />
+      {/* Family Celebrations + Testimonials stay off the page until real families' stories, photos and
+          reviews (with consent) are supplied — the current drafts are illustrative, not real clients. */}
 
       {/* Ceremonies & site videos from Instagram (embed loads on tap) — sand */}
       <InstagramMoments moments={INSTAGRAM_MOMENTS} config={config} />
 
-      {/* Testimonials — white */}
-      <Testimonials config={config} />
-
       {/* ── 5. Close ──────────────────────────────────────────────────── */}
-      {/* FAQ — sand · Areas (local SEO links) — white */}
+      {/* FAQ — white · Areas (local SEO links) — sand */}
       <FaqSection faqs={HOME_FAQS} />
       <AreasGrid areas={SERVICE_AREAS_TENTATIVE} />
 

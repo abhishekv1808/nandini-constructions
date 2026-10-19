@@ -17,7 +17,7 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
   };
 
   return (
-    <section aria-labelledby="faq" className="bg-sand py-12 md:py-24">
+    <section aria-labelledby="faq" className="bg-white py-12 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
@@ -31,7 +31,7 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
         />
         <Reveal className="space-y-2">
           {faqs.map((f, i) => (
-            <details key={f.q} className="group rounded-2xl border border-line bg-white" open={i === 0}>
+            <details key={f.q} className="group rounded-2xl border border-line bg-sand" open={i === 0}>
               <summary className="flex min-h-14 cursor-pointer list-none items-center gap-4 px-5 py-3 font-heading font-bold text-ink [&::-webkit-details-marker]:hidden">
                 <span className="flex-1">{f.q}</span>
                 <PlusIcon

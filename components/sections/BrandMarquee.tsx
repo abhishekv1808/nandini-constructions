@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { Marquee } from '@/components/motion/Marquee';
-import { ConfirmChip } from '@/components/site/Placeholder';
 import { getBrandLogos, type BrandLogo } from '@/lib/data/brand-logos';
 import { cn } from '@/lib/utils';
 import { SectionHeader } from './SectionHeader';
@@ -61,11 +60,10 @@ export function BrandMarquee({ groups }: { groups: BrandGroup[] }) {
   const all: Brand[] = groups.flatMap((g) =>
     g.brands.map((name) => ({ name, category: g.category, logo: logos[name] })),
   );
-  const missing = all.filter((b) => !b.logo).length;
   const half = Math.ceil(all.length / 2);
 
   return (
-    <section id="brands" aria-labelledby="brands-title" className="overflow-hidden bg-sand py-12 md:py-24">
+    <section id="brands" aria-labelledby="brands-title" className="overflow-hidden bg-white py-12 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="brands-title"
@@ -81,7 +79,7 @@ export function BrandMarquee({ groups }: { groups: BrandGroup[] }) {
       </div>
       <div className="mx-auto mt-6 max-w-7xl px-4 text-xs text-ink/60 md:px-6">
         Brands vary by package — see the full comparison above. Logos are trademarks of their respective
-        owners. {missing > 0 && <ConfirmChip label={`CONFIRM: logo files for ${missing} brands`} />}
+        owners.
       </div>
     </section>
   );

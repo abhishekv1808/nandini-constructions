@@ -1,14 +1,13 @@
 import { MapPinIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Reveal } from '@/components/motion/Reveal';
-import { ConfirmChip } from '@/components/site/Placeholder';
 import { areaSlug } from '@/lib/site-nav';
 import { SectionHeader } from './SectionHeader';
 
-/** §6.1 #11 — chip grid → local SEO pages (Phase 5). Area list is [CONFIRM]. */
+/** §6.1 #11 — chip grid → local SEO pages (Phase 5). Areas seen on Nandini's own posts. */
 export function AreasGrid({ areas }: { areas: string[] }) {
   return (
-    <section aria-labelledby="areas" className="bg-white py-12 md:py-24">
+    <section aria-labelledby="areas" className="bg-sand py-12 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeader
           id="areas"
@@ -30,9 +29,6 @@ export function AreasGrid({ areas }: { areas: string[] }) {
               </li>
             ))}
           </ul>
-          <p className="mt-4">
-            <ConfirmChip label="CONFIRM: service areas (localities + towns)" />
-          </p>
         </Reveal>
       </div>
     </section>

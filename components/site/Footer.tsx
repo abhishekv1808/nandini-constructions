@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { telLink } from '@/lib/contact-links';
 import { getSiteConfig } from '@/lib/site-config';
 import { FOOTER_GROUPS, LEGAL_LINKS, SERVICE_AREAS_TENTATIVE, areaSlug } from '@/lib/site-nav';
-import { ConfirmChip, Placeholder } from './Placeholder';
+import { ConfirmChip, Placeholder, hasValue } from './Placeholder';
 import { InstagramIcon, YouTubeIcon } from './icons';
 import { Logo } from './Logo';
 
@@ -88,22 +88,20 @@ export async function Footer() {
               )}
             </Placeholder>
           </p>
-          <p className="flex items-center gap-2.5">
-            <MailIcon className="size-4 shrink-0 text-white/60" strokeWidth={1.5} aria-hidden />
-            <Placeholder field={config.email} tone="dark">
-              {(email) => (
-                <a href={`mailto:${email}`} className={linkClass}>
-                  {email}
-                </a>
-              )}
-            </Placeholder>
-          </p>
-          <p className="flex items-center gap-2.5">
-            <ClockIcon className="size-4 shrink-0 text-white/60" strokeWidth={1.5} aria-hidden />
-            <Placeholder field={config.officeHours} tone="dark">
-              {(hours) => hours.map((h) => `${h.days}: ${h.hours}`).join(' · ')}
-            </Placeholder>
-          </p>
+          {hasValue(config.email) && (
+            <p className="flex items-center gap-2.5">
+              <MailIcon className="size-4 shrink-0 text-white/60" strokeWidth={1.5} aria-hidden />
+              <a href={`mailto:${config.email.value}`} className={linkClass}>
+                {config.email.value}
+              </a>
+            </p>
+          )}
+          {hasValue(config.officeHours) && (
+            <p className="flex items-center gap-2.5">
+              <ClockIcon className="size-4 shrink-0 text-white/60" strokeWidth={1.5} aria-hidden />
+              {config.officeHours.value.map((h) => `${h.days}: ${h.hours}`).join(' · ')}
+            </p>
+          )}
           <p>
             <Placeholder field={config.mapUrl} tone="dark">
               {(url) => (
@@ -122,7 +120,7 @@ export async function Footer() {
 
         <nav aria-label="Areas we serve">
           <h2 className="mb-3 flex flex-wrap items-center gap-2 font-heading text-sm font-bold tracking-[0.12em] text-white uppercase">
-            Areas we serve <ConfirmChip label="CONFIRM: service areas" tone="dark" />
+            Areas we serve
           </h2>
           <ul className="flex flex-wrap gap-2">
             {SERVICE_AREAS_TENTATIVE.map((area) => (

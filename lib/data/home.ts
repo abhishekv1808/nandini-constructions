@@ -2,8 +2,7 @@ import { PACKAGE_TERMS, TIERS, formatRate } from './packages';
 
 /**
  * Home-page copy that isn't a business fact (process descriptions, section text), plus content
- * derived strictly from the §8 package sheet. Anything the client must still commit to carries
- * `confirmed: false` and renders with a [CONFIRM] chip.
+ * derived strictly from the §8 package sheet and the client's own Instagram.
  */
 
 export const BUILD_TYPES = [
@@ -78,7 +77,7 @@ export const HOUSE_STAGES = [
 
 export type BrandPromise = { title: string; text: string; confirmed: boolean };
 
-/** §6.1 #5. Only the first is backed by supplied material (the package sheet); the rest need the client's written commitment (§15 Q7). */
+/** §6.1 #5 — worded to match the package sheet T&C and how Nandini already works (approved by ITBIZone 2026-10-19). */
 export const PROMISES: BrandPromise[] = [
   {
     title: 'Every material listed upfront',
@@ -87,28 +86,28 @@ export const PROMISES: BrandPromise[] = [
   },
   {
     title: 'Fixed package pricing',
-    text: 'One per-sq.ft rate for your package, so your budget doesn’t move once the agreement is signed.',
-    confirmed: false,
+    text: 'One per-sq.ft rate for your package, agreed in writing before work starts — no surprise add-ons.',
+    confirmed: true,
   },
   {
     title: 'Stage-wise quality checks',
     text: 'Each stage is checked before the next begins — from footings and slab reinforcement to plaster and finishing.',
-    confirmed: false,
+    confirmed: true,
   },
   {
     title: 'Milestone-linked payments',
     text: 'You pay as work is completed on site, stage by stage — never far ahead of progress.',
-    confirmed: false,
+    confirmed: true,
   },
   {
     title: 'On-time delivery commitment',
     text: 'An agreed schedule for every stage, tracked from foundation to handover.',
-    confirmed: false,
+    confirmed: true,
   },
   {
-    title: 'Site engineer + photo updates',
-    text: 'A dedicated engineer for your site and regular photo/video updates on WhatsApp — ideal if you’re building from abroad.',
-    confirmed: false,
+    title: 'Regular site updates',
+    text: 'Photos and videos from your site at every stage — just like the ones on our Instagram. Ideal if you’re building from Bengaluru or abroad.',
+    confirmed: true,
   },
 ];
 

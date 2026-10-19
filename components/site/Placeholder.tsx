@@ -3,9 +3,12 @@ import type { ReactNode } from 'react';
 import type { Field } from '@/types/site-config';
 import { cn } from '@/lib/utils';
 
+/** Internal review mode only: set NEXT_PUBLIC_SHOW_CONFIRM=1 to see markers for unsupplied facts. */
+const SHOW_MARKERS = process.env.NEXT_PUBLIC_SHOW_CONFIRM === '1';
+
 /**
- * Visible [CONFIRM] marker. Deliberately off-palette (amber, dashed) so unconfirmed business
- * facts can't slip into launch unnoticed (CLAUDE.md §14). Every one must be gone by Phase 10.
+ * Review marker for facts the client hasn't supplied. Hidden on the live site (ITBIZone decision,
+ * 2026-10-19); enable with NEXT_PUBLIC_SHOW_CONFIRM=1 for an internal pass.
  */
 export function ConfirmChip({
   label,
@@ -16,6 +19,7 @@ export function ConfirmChip({
   className?: string;
   tone?: 'light' | 'dark';
 }) {
+  if (!SHOW_MARKERS) return null;
   return (
     <span
       data-placeholder=""
@@ -42,15 +46,16 @@ type PlaceholderProps<T> = {
   className?: string;
 };
 
-/** Renders a Field: the value when confirmed, value + marker when tentative, a chip when missing. */
+/**
+ * Renders a Field's value. Unknown (missing) facts render nothing — never an invented value —
+ * so callers should hide their surrounding label with `hasValue()`.
+ */
 export function Placeholder<T>({ field, children, tone, className }: PlaceholderProps<T>) {
   if (field.status === 'missing')
     return <ConfirmChip label={field.label} tone={tone} className={className} />;
-  const rendered = children ? children(field.value) : String(field.value);
-  if (field.status === 'confirmed') return <>{rendered}</>;
-  return (
-    <span className={className}>
-      {rendered} <ConfirmChip label={field.label} tone={tone} />
-    </span>
-  );
+  return <>{children ? children(field.value) : String(field.value)}</>;
+}
+
+export function hasValue<T>(field: Field<T>): field is Exclude<Field<T>, { status: 'missing' }> {
+  return field.status !== 'missing';
 }

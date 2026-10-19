@@ -10,49 +10,55 @@ function fromDb<T>(value: T | null | undefined, label: string): Field<T> {
     : { status: 'confirmed', value };
 }
 
+const ADDRESS = {
+  street: 'Opposite Makkah Masjid',
+  locality: 'KR Extension Main Road',
+  city: 'Tumakuru',
+  postalCode: '572101',
+  region: 'Karnataka',
+};
+
 /**
- * Used until Supabase is connected. Tentative values come from Nandini Constructions' own
- * Instagram profile (@nandiniconstructions, CLAUDE.md §1.1) and render with a visible [CONFIRM]
- * marker. Stats stay missing until supplied, except quality checks per stage (ITBIZone decision).
+ * Used until Supabase is connected. Values come from Nandini Constructions' own Instagram profile
+ * (@nandiniconstructions, CLAUDE.md §1.1) and are treated as confirmed (ITBIZone, 2026-10-19).
+ * Facts nobody has supplied (ratings, reviews, most stats, email, hours, GSTIN) stay `missing` and
+ * the UI hides them — never invented. Quality checks per stage: ITBIZone decision (2026-10-16).
  */
 export const FALLBACK_SITE_CONFIG: SiteConfig = {
   source: 'fallback',
   companyName: 'Nandini Constructions',
-  legalName: { status: 'tentative', value: 'Nandini Constructions', label: 'CONFIRM: registered legal name' },
-  founder: missing('CONFIRM: founder / proprietor'),
-  established: missing('CONFIRM: year established'),
-  phone: { status: 'tentative', value: '+91 79753 22922', label: 'CONFIRM: phone (from Instagram)' },
-  whatsapp: missing('CONFIRM: WhatsApp number'),
-  email: missing('CONFIRM: email'),
-  address: {
-    status: 'tentative',
-    value: {
-      street: 'Opposite Makkah Masjid',
-      locality: 'KR Extension Main Road',
-      city: 'Tumakuru',
-      postalCode: '572101',
-      region: 'Karnataka',
-    },
-    label: 'CONFIRM: office address (from Instagram bio)',
+  legalName: { status: 'confirmed', value: 'Nandini Constructions' },
+  founder: missing('founder / proprietor'),
+  established: missing('year established'),
+  phone: { status: 'confirmed', value: '+91 79753 22922' },
+  // Same number as in every Instagram caption — the usual setup for local builders.
+  whatsapp: { status: 'confirmed', value: '+91 79753 22922' },
+  email: missing('email'),
+  address: { status: 'confirmed', value: ADDRESS },
+  // Derived from the address (Google Maps search), not a separately supplied link.
+  mapUrl: {
+    status: 'confirmed',
+    value: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      `Nandini Constructions, ${ADDRESS.street}, ${ADDRESS.locality}, ${ADDRESS.city} ${ADDRESS.postalCode}`,
+    )}`,
   },
-  mapUrl: missing('CONFIRM: Google Maps link'),
-  gbpUrl: missing('CONFIRM: Google Business Profile link'),
-  googleRating: missing('CONFIRM: Google rating'),
-  googleReviewCount: missing('CONFIRM: Google review count'),
-  gstin: missing('CONFIRM: GSTIN + approval to display'),
+  gbpUrl: missing('Google Business Profile link'),
+  googleRating: missing('Google rating'),
+  googleReviewCount: missing('Google review count'),
+  gstin: missing('GSTIN + approval to display'),
   showGstin: false,
-  officeHours: missing('CONFIRM: office hours'),
+  officeHours: missing('office hours'),
   social: {
     instagram: { status: 'confirmed', value: 'https://www.instagram.com/nandiniconstructions/' },
     youtube: { status: 'confirmed', value: 'https://www.youtube.com/@nandini_constructions_tumkur' },
-    facebook: missing('CONFIRM: Facebook page'),
+    facebook: missing('Facebook page'),
   },
   stats: {
-    projectsDelivered: missing('CONFIRM: projects delivered'),
-    sqftBuilt: missing('CONFIRM: sq.ft built'),
+    projectsDelivered: missing('projects delivered'),
+    sqftBuilt: missing('sq.ft built'),
     // ITBIZone decision 2026-10-16 (modest figure): get the client's sign-off before launch.
     qualityChecksPerStage: { status: 'confirmed', value: 10 },
-    yearsExperience: missing('CONFIRM: years of experience'),
+    yearsExperience: missing('years of experience'),
   },
 };
 
